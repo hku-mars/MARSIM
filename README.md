@@ -3,6 +3,7 @@ MARSIM: A light-weight point-realistic simulator for LiDAR-based UAVs
 
 Paper is available on Arxiv: https://arxiv.org/abs/2211.10716
 
+The video is available on youtube: https://youtu.be/hiRtcq-5lN0
 
 ## Prerequisited
 
