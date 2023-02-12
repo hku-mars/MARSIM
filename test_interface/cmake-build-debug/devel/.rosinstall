@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/fangcheng/workspace/multi_uav_sim_ws/src/multi_uav_sim/Exploration_sim/uav_simulator/test_interface/cmake-build-debug/devel/setup.sh

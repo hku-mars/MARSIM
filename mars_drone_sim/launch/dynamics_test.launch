@@ -1,0 +1,47 @@
+<launch>
+
+    <arg name="init_x" value="0.0"/>
+    <arg name="init_y" value="0.0"/>
+    <arg name="init_z" value="1.0"/> 
+
+    <node pkg="mars_drone_sim" name="quadrotor_dynamics_1" type="quadrotor_dynamics_node" output="screen">
+        <remap from="~odom" to="/simulator/odom"/>
+        <remap from="~cmd_RPM" to="/quad_1_cmdRPM"/>
+        <param name="mass"   value="1.9"/>
+        <param name="simulation_rate"   value="200"/>
+        <param name="quadrotor_name"   value="quadrotor_1"/>
+        <param name="init_state_x"   value="$(arg init_x)"/>
+        <param name="init_state_y"   value="$(arg init_y)"/>
+        <param name="init_state_z"   value="$(arg init_z)"/>
+        
+    </node>
+
+    <node pkg="cascadePID" name="cascadePID_node_1" type="cascadePID_node" output="screen" >
+        <remap from="~odom" to="/simulator/odom"/>
+        <remap from="~cmd_RPM" to="/quad_1_cmdRPM"/>
+        <remap from="~cmd_pose" to="/planning/pos_new_cmd"/>
+        <remap from="~position_cmd" to="/planning/pos_cmd"/>
+        <param name="controller_rate"   value="200"/>
+        <param name="quadrotor_name"   value="quadrotor_1"/>
+        <param name="init_state_x"   value="$(arg init_x)"/>
+        <param name="init_state_y"   value="$(arg init_y)"/>
+        <param name="init_state_z"   value="$(arg init_z)"/>
+        <param name="angle_stable_time"   value="0.3"/>
+        <param name="damping_ratio"   value="0.7"/>
+    </node>
+
+    <node pkg="odom_visualization" name="odom_visualization" type="odom_visualization" output="screen">
+        <remap from="~odom" to="/simulator/odom"/>
+        <param name="color/a" value="1.0"/>    
+        <param name="color/r" value="0.0"/>        
+        <param name="color/g" value="0.0"/>        
+        <param name="color/b" value="1.0"/>       
+        <param name="covariance_scale" value="100.0"/>       
+        <param name="robot_scale" value="1.0"/>
+    </node>
+
+    <node name="test_interface_node1" pkg="test_interface" type="test_interface_node" output="screen" />
+
+    <node name="rvizvisualisation" pkg="rviz" type="rviz" output="log" args="-d $(find test_interface)/config/traj.rviz" />
+
+</launch>

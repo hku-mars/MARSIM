@@ -1,0 +1,69 @@
+/home/fangcheng/clion-2021.3.3/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/fangcheng/workspace/multi_uav_sim_ws/src/multi_uav_sim/Exploration_sim/uav_simulator/test_interface
+CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+  Compatibility with CMake < 2.8.12 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value or use a ...<max> suffix to tell
+  CMake that the project does not need compatibility with older versions.
+
+
+-- Using CATKIN_DEVEL_PREFIX: /home/fangcheng/workspace/multi_uav_sim_ws/src/multi_uav_sim/Exploration_sim/uav_simulator/test_interface/cmake-build-debug/devel
+-- Using CMAKE_PREFIX_PATH: /home/fangcheng/workspace/ws_livox/devel;/opt/ros/melodic
+-- This workspace overlays: /home/fangcheng/workspace/ws_livox/devel;/opt/ros/melodic
+-- Found PythonInterp: /usr/bin/python2 (found suitable version "2.7.17", minimum required is "2") 
+-- Using PYTHON_EXECUTABLE: /usr/bin/python2
+-- Using Debian Python package layout
+-- Using empy: /usr/bin/empy
+-- Using CATKIN_ENABLE_TESTING: ON
+-- Call enable_testing()
+-- Using CATKIN_TEST_RESULTS_DIR: /home/fangcheng/workspace/multi_uav_sim_ws/src/multi_uav_sim/Exploration_sim/uav_simulator/test_interface/cmake-build-debug/test_results
+-- Found gtest sources under '/usr/src/googletest': gtests will be built
+-- Found gmock sources under '/usr/src/googletest': gmock will be built
+CMake Deprecation Warning at /usr/src/googletest/CMakeLists.txt:1 (cmake_minimum_required):
+  Compatibility with CMake < 2.8.12 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value or use a ...<max> suffix to tell
+  CMake that the project does not need compatibility with older versions.
+
+
+CMake Deprecation Warning at /usr/src/googletest/googlemock/CMakeLists.txt:41 (cmake_minimum_required):
+  Compatibility with CMake < 2.8.12 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value or use a ...<max> suffix to tell
+  CMake that the project does not need compatibility with older versions.
+
+
+CMake Deprecation Warning at /usr/src/googletest/googletest/CMakeLists.txt:48 (cmake_minimum_required):
+  Compatibility with CMake < 2.8.12 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value or use a ...<max> suffix to tell
+  CMake that the project does not need compatibility with older versions.
+
+
+-- Found PythonInterp: /usr/bin/python2 (found version "2.7.17") 
+-- Using Python nosetests: /usr/bin/nosetests-2.7
+-- catkin 0.7.29
+-- BUILD_SHARED_LIBS is on
+-- Could NOT find quadrotor_msgs (missing: quadrotor_msgs_DIR)
+-- Could not find the required component 'quadrotor_msgs'. The following CMake error indicates that you either need to install the package with the same name or change your environment so that it can be found.
+CMake Error at /opt/ros/melodic/share/catkin/cmake/catkinConfig.cmake:83 (find_package):
+  Could not find a package configuration file provided by "quadrotor_msgs"
+  with any of the following names:
+
+    quadrotor_msgsConfig.cmake
+    quadrotor_msgs-config.cmake
+
+  Add the installation prefix of "quadrotor_msgs" to CMAKE_PREFIX_PATH or set
+  "quadrotor_msgs_DIR" to a directory containing one of the above files.  If
+  "quadrotor_msgs" provides a separate development package or SDK, be sure it
+  has been installed.
+Call Stack (most recent call first):
+  CMakeLists.txt:10 (find_package)
+
+
+-- Configuring incomplete, errors occurred!
+See also "/home/fangcheng/workspace/multi_uav_sim_ws/src/multi_uav_sim/Exploration_sim/uav_simulator/test_interface/cmake-build-debug/CMakeFiles/CMakeOutput.log".
+See also "/home/fangcheng/workspace/multi_uav_sim_ws/src/multi_uav_sim/Exploration_sim/uav_simulator/test_interface/cmake-build-debug/CMakeFiles/CMakeError.log".

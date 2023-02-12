@@ -1,0 +1,131 @@
+<launch>
+    <arg name="use_gpu_" value="true"/>
+
+    <arg name="map_size_x_" value="50.0"/>
+    <arg name="map_size_y_" value="50.0"/>
+    <arg name="map_size_z_" value="10.0"/>
+    <arg name="drone_num" value="2"/>
+
+    <arg name="c_num"/>
+    <arg name="p_num"/>
+    <arg name="odometry_topic"/>
+    <arg name="obj_num" value="1"/>
+
+    <arg name="frame_id" value="world"/>
+    <arg name="global_cloud_topic" value="/map_generator/global_cloud"/>
+    <arg name="odom_topic" value="/lidar_slam/odom"/>
+
+    <arg name="map_name" value="/home/dji/meshmap/small_forest002cutoff.pcd"/>
+    <arg name="downsample_resolution" value="0.02"/>
+
+    <arg name="use_uav_extra_model" value = "1"/>
+
+    <!--$(find map_generator)/resource/small_forest01.pcd small_forest002cutoff.pcd lowres/small_forest01cutoff.pcd-->
+
+    <!-- map generation 1-->
+    <param name="add_boundary" value="0"/>
+    <param name="is_bridge" value="0"/>
+    <param name="downsample_res" value="0.1"/>
+    <!-- $(arg downsample_resolution) -->
+
+    <!-- <node pkg="random_map_generator" type="random_map_node" name="random_map_node" output="screen">
+        <rosparam command="load" file="$(find test_interface)/config/random_map_config.yaml"/>
+        <remap from="/map_generator/global_cloud" to="$(arg global_cloud_topic)"/>
+        <param name="map/frame_id" value="$(arg frame_id)" type="string"></param>
+    </node> -->
+<!-- $(find map_generator)/resource/small_forest01.pcd -->
+   <node pkg="map_generator" name="map_pub" type="map_pub" output="screen"
+         args="$(arg map_name)">
+   </node>
+
+    <include file="$(find test_interface)/launch/single_drone.xml">
+        <arg name="drone_id" value="0"/>
+        <arg name="uav_num_" value="$(arg drone_num)"/>
+        <arg name="lidar_type" value="mid360"/>
+        <arg name="init_x_" value="-5.0"/>
+        <arg name="init_y_" value="0.0"/>
+        <arg name="init_z_" value="1.0"/>
+        <arg name="init_yaw" value="0.0"/>
+        <arg name="map_size_x_" value="$(arg map_size_x_)"/>
+        <arg name="map_size_y_" value="$(arg map_size_y_)"/>
+        <arg name="map_size_z_" value="$(arg map_size_z_)"/>
+        <arg name="map_name_" value="$(arg map_name)"/>
+        <arg name="downsample_resolution_" value="$(arg downsample_resolution)"/>
+        <arg name="odom_topic" value="$(arg odom_topic)"/>
+        <arg name="use_gpu" value="$(arg use_gpu_)"/>
+        <arg name="use_uav_extra_model_" value="$(arg use_uav_extra_model)"/>
+    </include>
+
+   <include file="$(find test_interface)/launch/single_drone.xml">
+       <arg name="drone_id" value="1"/>
+       <arg name="uav_num_" value="$(arg drone_num)"/>
+       <arg name="lidar_type" value="mid360"/>
+       <arg name="init_x_" value="-3.0"/>
+       <arg name="init_y_" value="0.0"/>
+       <arg name="init_z_" value="1.0"/>
+       <arg name="init_yaw" value="0.0"/>
+       <arg name="map_size_x_" value="$(arg map_size_x_)"/>
+       <arg name="map_size_y_" value="$(arg map_size_y_)"/>
+       <arg name="map_size_z_" value="$(arg map_size_z_)"/>
+        <arg name="map_name_" value="$(arg map_name)"/>
+        <arg name="downsample_resolution_" value="$(arg downsample_resolution)"/>
+        <arg name="odom_topic" value="$(arg odom_topic)"/>
+        <arg name="use_gpu" value="$(arg use_gpu_)"/>
+        <arg name="use_uav_extra_model_" value="$(arg use_uav_extra_model)"/>
+   </include>
+<!-- 
+   <include file="$(find test_interface)/launch/single_drone.xml">
+       <arg name="drone_id" value="2"/>
+       <arg name="uav_num_" value="$(arg drone_num)"/>
+       <arg name="lidar_type" value="mid360"/>
+       <arg name="init_x_" value="-6.0"/>
+       <arg name="init_y_" value="0.0"/>
+       <arg name="init_z_" value="1.0"/>
+       <arg name="init_yaw" value="0.0"/>
+       <arg name="map_size_x_" value="$(arg map_size_x_)"/>
+       <arg name="map_size_y_" value="$(arg map_size_y_)"/>
+       <arg name="map_size_z_" value="$(arg map_size_z_)"/>
+        <arg name="map_name_" value="$(arg map_name)"/>
+        <arg name="downsample_resolution_" value="$(arg downsample_resolution)"/>
+        <arg name="odom_topic" value="/lidar_slam/odom3"/>
+        <arg name="use_gpu" value="$(arg use_gpu_)"/>
+   </include>
+
+   <include file="$(find test_interface)/launch/single_drone.xml">
+       <arg name="drone_id" value="3"/>
+       <arg name="uav_num_" value="$(arg drone_num)"/>
+       <arg name="lidar_type" value="mid360"/>
+       <arg name="init_x_" value="-9.0"/>
+       <arg name="init_y_" value="0.0"/>
+       <arg name="init_z_" value="1.0"/>
+       <arg name="init_yaw" value="0.0"/>
+       <arg name="map_size_x_" value="$(arg map_size_x_)"/>
+       <arg name="map_size_y_" value="$(arg map_size_y_)"/>
+       <arg name="map_size_z_" value="$(arg map_size_z_)"/>
+        <arg name="map_name_" value="$(arg map_name)"/>
+        <arg name="downsample_resolution_" value="$(arg downsample_resolution)"/>
+        <arg name="odom_topic" value="/lidar_slam/odom4"/>
+        <arg name="use_gpu" value="$(arg use_gpu_)"/>
+   </include>
+
+   <include file="$(find test_interface)/launch/single_drone.xml">
+       <arg name="drone_id" value="4"/>
+       <arg name="uav_num_" value="$(arg drone_num)"/>
+       <arg name="lidar_type" value="mid360"/>
+       <arg name="init_x_" value="-12.0"/>
+       <arg name="init_y_" value="0.0"/>
+       <arg name="init_z_" value="1.0"/>
+       <arg name="init_yaw" value="0.0"/>
+       <arg name="map_size_x_" value="$(arg map_size_x_)"/>
+       <arg name="map_size_y_" value="$(arg map_size_y_)"/>
+       <arg name="map_size_z_" value="$(arg map_size_z_)"/>
+        <arg name="map_name_" value="$(arg map_name)"/>
+        <arg name="downsample_resolution_" value="$(arg downsample_resolution)"/>
+        <arg name="odom_topic" value="/lidar_slam/odom5"/>
+        <arg name="use_gpu" value="$(arg use_gpu_)"/>
+   </include> -->
+
+   <node name="rvizvisualisation" pkg="rviz" type="rviz" output="screen"
+   args="-d $(find test_interface)/config/traj.rviz" />
+
+</launch>
