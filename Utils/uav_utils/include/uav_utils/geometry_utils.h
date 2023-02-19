@@ -1,7 +1,7 @@
 #ifndef __GEOMETRY_UTILS_H
 #define __GEOMETRY_UTILS_H
 
-#include <Eigen/Dense>
+#include <eigen3/Eigen/Dense>
 
 /* clang-format off */
 namespace uav_utils {

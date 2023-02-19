@@ -371,7 +371,7 @@ void dynobjGenerate(const ros::TimerEvent &event)
     // sensor_msgs::PointCloud2 dynobj_points_pcd;
     // pcl::toROSMsg(dynobj_points_vis, dynobj_points_pcd);
     // dynobj_points_pcd.header = odom_.header;
-    // dynobj_points_pcd.header.frame_id = "/world";
+    // dynobj_points_pcd.header.frame_id = "world";
     // pub_dyncloud.publish(dynobj_points_pcd);
 
     kdtree_dyn.setInputCloud(dynobj_points_vis.makeShared());
@@ -648,7 +648,7 @@ void renderSensedPoints(const ros::TimerEvent& event)
     pcl::toROSMsg(*local_map, local_map_pcd);
     local_map_pcd.header = odom_.header;
     local_map_pcd.header.stamp = time_stamp_;
-    local_map_pcd.header.frame_id = "/world";
+    local_map_pcd.header.frame_id = "world";
     pub_cloud.publish(local_map_pcd);
 
     Eigen::Matrix4f sensor2world;
