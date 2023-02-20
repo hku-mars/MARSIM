@@ -1,7 +1,7 @@
 #pragma once
 #include <pcl/point_types.h>
-#include <Eigen/StdVector>
-#include <Eigen/Geometry>
+#include <eigen3/Eigen/StdVector>
+#include <eigen3/Eigen/Geometry>
 #include <stdio.h>
 #include <queue>
 #include <pthread.h>

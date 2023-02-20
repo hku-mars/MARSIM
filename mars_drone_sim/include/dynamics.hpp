@@ -1,5 +1,5 @@
-#include <Eigen/Eigen>
-#include <Eigen/Dense>
+#include <eigen3/Eigen/Eigen>
+#include <eigen3/Eigen/Dense>
 #include <stdio.h>
 
 // using namespace std;

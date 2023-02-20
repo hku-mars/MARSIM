@@ -3,7 +3,7 @@
 #include <math.h>
 #include <cmath>
 #include "ikd-Tree/ikd_Tree.h"
-#include <Eigen/Core>
+#include <eigen3/Eigen/Core>
 #include <algorithm>
 
 #define eps_value 1e-6

@@ -1,7 +1,7 @@
 #include <iostream>
 #include "ros/ros.h"
-#include <Eigen/Core>
-#include <Eigen/Eigen>
+#include <eigen3/Eigen/Core>
+#include <eigen3/Eigen/Eigen>
 #include "tf/transform_broadcaster.h"
 #include "nav_msgs/Odometry.h"
 #include "geometry_msgs/PoseStamped.h"
@@ -180,7 +180,7 @@ void odom_callback(const nav_msgs::Odometry::ConstPtr &msg) {
         pose_lidar.pose.position.y -= init_y;
         pose_lidar.pose.position.z -= init_z;
         pathROS.poses.push_back(pose_lidar);
-        pathROS.header.frame_id = quad_name + "/world";
+        pathROS.header.frame_id = quad_name + "world";
         pathPub.publish(pathROS);
     }
 

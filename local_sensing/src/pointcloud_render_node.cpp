@@ -8,7 +8,7 @@
 #include <pcl_conversions/pcl_conversions.h>
 #include <ros/ros.h>
 #include <sensor_msgs/PointCloud2.h>
-#include <Eigen/Dense>
+#include <eigen3/Eigen/Dense>
 #include <fstream>
 #include <iostream>
 #include <pcl/search/impl/kdtree.hpp>
@@ -542,7 +542,7 @@ void dynobjGenerate(const ros::TimerEvent &event)
 
     pcl::toROSMsg(dynobj_points_vis, dynobj_points_pcd);
     dynobj_points_pcd.header = odom_.header;
-    dynobj_points_pcd.header.frame_id = "/world";
+    dynobj_points_pcd.header.frame_id = "world";
     pub_dyncloud.publish(dynobj_points_pcd);
 
     kdtree_dyn.setInputCloud(dynobj_points_vis.makeShared());
@@ -1183,7 +1183,7 @@ void renderSensedPoints(const ros::TimerEvent &event)
   omp_set_num_threads(32);
 
 #ifndef DEBUG
-#pragma omp parallel default(none)                                                             \
+#pragma omp parallel /*default(none)*/                                                             \
     shared(pattern_matrix, polar_matrix, cloud_all_map, pointIdxRadiusSearch,                  \
            min_raylength, downsample_res, polar_resolution, use_avia_pattern, _kdtreeLocalMap, \
            polarindex_matrix, local_map_filled, local_map,                                     \
@@ -1308,7 +1308,7 @@ void renderSensedPoints(const ros::TimerEvent &event)
   if (plane_interline == 1)
   {
 
-#pragma omp parallel default(none) \
+#pragma omp parallel /*default(none)*/ \
     shared(polarindex_matrix, culling_kdindex)
     {
       std::vector<int> vec_private;
@@ -1351,7 +1351,7 @@ void renderSensedPoints(const ros::TimerEvent &event)
     double duration_direct = 0.0;
 
 #ifndef DEBUG
-#pragma omp parallel default(none)                                                                \
+#pragma omp parallel /*default(none)*/                                                                \
     shared(culling_kdindex,                                                                       \
            polar_matrix, cloud_all_map,                                                           \
            downsample_res, polar_resolution,                                                      \
@@ -1569,7 +1569,7 @@ void renderSensedPoints(const ros::TimerEvent &event)
   int free_flag = 0;
 
 #ifndef DEBUG
-#pragma omp parallel default(none)                                                                 \
+#pragma omp parallel /*default(none)*/                                                                 \
     shared(use_avia_pattern, use_vlp32_pattern, use_minicf_pattern, is_360lidar,                   \
            polar_matrix, pattern_matrix, min_raylength, vertical_fov, local_map_filled, free_flag, \
            sensing_horizon, rotmyaw, polarindextype_matrix, polarpointintensity_matrix)
@@ -1743,7 +1743,7 @@ void renderSensedPoints(const ros::TimerEvent &event)
 
   pcl::toROSMsg(local_map_filled, local_map_pcd);
   local_map_pcd.header = odom_.header;
-  local_map_pcd.header.frame_id = "/world";
+  local_map_pcd.header.frame_id = "world";
   pub_cloud.publish(local_map_pcd);
 
   // transform
@@ -1752,7 +1752,7 @@ void renderSensedPoints(const ros::TimerEvent &event)
   geometry_msgs::TransformStamped transform;
   ros::Time time_stamp_ = odom_.header.stamp;
   transform.header.stamp = time_stamp_;
-  transform.header.frame_id = "/world";
+  transform.header.frame_id = "world";
   transform.child_frame_id = sensor_frame_id_;
 
   transform.transform.translation.x = pos.x();
