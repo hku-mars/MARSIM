@@ -5,6 +5,10 @@ Paper is available on Arxiv: https://arxiv.org/abs/2211.10716
 
 The video is available on youtube: https://youtu.be/hiRtcq-5lN0
 
+## Update
+
+Ubuntu 20.04 is also supported in ubuntu20 branch.
+
 ## Prerequisited
 
 ### Ubuntu and ROS
