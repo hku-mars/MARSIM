@@ -23,7 +23,7 @@ Eigen>=3.3.4, Follow [Eigen Installation](https://eigen.tuxfamily.org/index.php?
 
 glfw3:
 ```
-sudo apt-get install libglfw3-dev
+sudo apt-get install libglfw3-dev libglew-dev
 ```
 
 ### make
