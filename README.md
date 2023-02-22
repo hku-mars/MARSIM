@@ -9,7 +9,7 @@ The video is available on youtube: https://youtu.be/hiRtcq-5lN0
 
 Ubuntu 20.04 is also supported in ubuntu20 branch.
 
-Ten realistic maps (low and high resolution) have been realeased in the realease packages.
+**Ten realistic maps (low and high resolution) have been realeased in the realease packages.**
 
 ## Prerequisited
 
