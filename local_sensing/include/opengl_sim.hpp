@@ -281,6 +281,8 @@ void opengl_pointcloud_render::read_pointcloud_fromfile(std::string map_filename
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+    glfwWindowHint(GLFW_VISIBLE, GL_FALSE); // invisible window
+
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
