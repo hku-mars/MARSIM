@@ -11,6 +11,8 @@ Ubuntu 20.04 is also supported in ubuntu20 branch.
 
 **Ten realistic maps (low and high resolution) have been realeased in the realease packages.**
 
+**A new branch that merge with FUEL has been released in the fuel_ubuntu20 branch.**
+
 ## Prerequisited
 
 ### Ubuntu and ROS
@@ -43,11 +45,22 @@ catkin_make
 source devel/setup.bash
 roslaunch test_interface single_drone_avia.launch
 ```
-Click on 3Dgoal tool on the rviz, you can give the UAV a position command to control its flight.
+Click on 3Dgoal tool on the Rviz, you can give the UAV a position command to control its flight.
 
 For now, we provide several launch files for users, which can be found in test_interface/launch folder.
 
 You can change the parameter in launch files to change the map and LiDAR to be simulated.
+
+** If you want to use the GPU version of MARSIM, please set the parameter "use_gpu" to true. **
+
+## run the simulation with FUEL algorithm
+
+You should first change the branch to fuel_ubuntu20 branch. If you are using ubuntu 20.04, you should first download Nlopt and make install it in your environment. Then you can run the simulation by the command below:
+```
+source devel/setup.bash
+roslaunch exploration_manager exploration.launch
+```
+Then click on 2Dgoal tool on the Rviz, randomly click on the map, and FUEL would automously run.
 
 ## Acknowledgments
 Thanks for [FUEL](https://github.com/HKUST-Aerial-Robotics/FUEL.git)
