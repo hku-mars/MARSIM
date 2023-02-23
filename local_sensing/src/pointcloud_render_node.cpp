@@ -650,6 +650,21 @@ void rcvOdometryCallbck(const nav_msgs::Odometry &odom)
   // convert to cam pose
   sensor2world = body2world * sensor2body;
 
+  Eigen::Quaterniond q;
+  q = sensor2world.block<3, 3>(0, 0);
+
+  geometry_msgs::PoseStamped sensor_pose;
+  sensor_pose.header = odom_.header;
+  sensor_pose.header.frame_id = "/map";
+  sensor_pose.pose.position.x = odom_.pose.pose.position.x;
+  sensor_pose.pose.position.y = odom_.pose.pose.position.y;
+  sensor_pose.pose.position.z = odom_.pose.pose.position.z;
+  sensor_pose.pose.orientation.w = q.w();
+  sensor_pose.pose.orientation.x = q.x();
+  sensor_pose.pose.orientation.y = q.y();
+  sensor_pose.pose.orientation.z = q.z();
+  pub_pose.publish(sensor_pose);
+
   ros::Time start_time = ros::Time::now();
 
   // collision check
@@ -1836,20 +1851,20 @@ void renderSensedPoints(const ros::TimerEvent &event)
 
 void pubSensorPose(const ros::TimerEvent &e)
 {
-  Eigen::Quaterniond q;
-  q = sensor2world.block<3, 3>(0, 0);
+  // Eigen::Quaterniond q;
+  // q = sensor2world.block<3, 3>(0, 0);
 
-  geometry_msgs::PoseStamped sensor_pose;
-  sensor_pose.header = odom_.header;
-  sensor_pose.header.frame_id = "/map";
-  sensor_pose.pose.position.x = sensor2world(0, 3);
-  sensor_pose.pose.position.y = sensor2world(1, 3);
-  sensor_pose.pose.position.z = sensor2world(2, 3);
-  sensor_pose.pose.orientation.w = q.w();
-  sensor_pose.pose.orientation.x = q.x();
-  sensor_pose.pose.orientation.y = q.y();
-  sensor_pose.pose.orientation.z = q.z();
-  pub_pose.publish(sensor_pose);
+  // geometry_msgs::PoseStamped sensor_pose;
+  // sensor_pose.header = odom_.header;
+  // sensor_pose.header.frame_id = "/map";
+  // sensor_pose.pose.position.x = odom_.pose.pose.position.x;
+  // sensor_pose.pose.position.y = odom_.pose.pose.position.x;
+  // sensor_pose.pose.position.z = odom_.pose.pose.position.x;
+  // sensor_pose.pose.orientation.w = q.w();
+  // sensor_pose.pose.orientation.x = q.x();
+  // sensor_pose.pose.orientation.y = q.y();
+  // sensor_pose.pose.orientation.z = q.z();
+  // pub_pose.publish(sensor_pose);
 }
 
 int main(int argc, char **argv)
