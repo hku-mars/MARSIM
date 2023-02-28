@@ -19,7 +19,7 @@ The video is available on youtube: https://youtu.be/hiRtcq-5lN0
 
 ## Application
 ### Single_Drone_Fixed_Goal_Navigation
-
+![image](https://github.com/1f-small-Xue-study-today/MARSIM/blob/main/media/nav-3d.gif)
 
 
 ## Update
