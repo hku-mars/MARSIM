@@ -3,7 +3,25 @@ MARSIM: A light-weight point-realistic simulator for LiDAR-based UAVs
 
 Paper is available on Arxiv: https://arxiv.org/abs/2211.10716
 
-The video is available on youtube: https://youtu.be/hiRtcq-5lN0
+The video is available on youtube: https://youtu.be/hiRtcq-5lN0 and 
+【MARSIM: 轻量化雷达无人机仿真器】 https://www.bilibili.com/video/BV1M84y117KG
+
+<p align="center">
+  <a href="https://youtu.be/hiRtcq-5lN0" target="_blank"><img src="figures/coverfigure.png" alt="video" width="840" height="420" border="1" /></a>
+</p>
+
+<p align="center">
+
+  <img src="figures/readme_setgoal.gif" width = "420" height = "237"/>
+
+  <img src="figures/readme_dynobs.gif" width = "420" height = "237"/>
+
+
+  <img src="figures/readme_multiuav.gif" width = "420" height = "237"/>
+
+
+  <img src="figures/readme_exploration.gif" width = "420" height = "237"/>
+</p>
 
 ## Update
 
@@ -12,6 +30,8 @@ Ubuntu 20.04 is also supported in ubuntu20 branch.
 **Ten realistic maps (low and high resolution) have been realeased in the realease packages.**
 
 **A new branch that merge with FUEL has been released in the fuel_ubuntu20 branch.**
+
+
 
 ## Prerequisited
 
@@ -39,7 +59,7 @@ cd ..
 catkin_make
 ```
 
-## run the simulation
+## run the single drone simulation
 
 ```
 source devel/setup.bash
@@ -49,9 +69,26 @@ Click on 3Dgoal tool on the Rviz, you can give the UAV a position command to con
 
 For now, we provide several launch files for users, which can be found in test_interface/launch folder.
 
-You can change the parameter in launch files to change the map and LiDAR to be simulated.
+You can change the parameter in launch files to change the map and LiDAR to be simulated. The maps have been uploaded to the realease files in this repository.
 
-** If you want to use the GPU version of MARSIM, please set the parameter "use_gpu" to true. **
+```
+    <arg name="map_name" value="$(find map_generator)/resource/small_forest01cutoff.pcd"/>
+
+```
+
+**If you want to use the GPU version of MARSIM, please set the parameter "use_gpu" to true.**
+
+## run the single drone simulation with dynamic obstacles
+```
+source devel/setup.bash
+roslaunch test_interface single_drone_mid360_dynobs.launch
+```
+
+## run the multiple drone simulation
+```
+source devel/setup.bash
+roslaunch test_interface triple_drone_mid360.launch
+```
 
 ## run the simulation with FUEL algorithm
 
