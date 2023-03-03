@@ -50,7 +50,7 @@ glfw3:
 sudo apt-get install libglfw3-dev libglew-dev
 ```
 
-### make
+### Make
 ```
 mkdir -p marsim_ws/src
 cd marsim_ws/src
@@ -59,7 +59,7 @@ cd ..
 catkin_make
 ```
 
-## run the single drone simulation
+## Run single drone simulation
 
 ```
 source devel/setup.bash
@@ -78,19 +78,19 @@ You can change the parameter in launch files to change the map and LiDAR to be s
 
 **If you want to use the GPU version of MARSIM, please set the parameter "use_gpu" to true.**
 
-## run the single drone simulation with dynamic obstacles
+## Run single drone simulation with dynamic obstacles
 ```
 source devel/setup.bash
 roslaunch test_interface single_drone_mid360_dynobs.launch
 ```
 
-## run the multiple drone simulation
+## Run multiple drones simulation
 ```
 source devel/setup.bash
 roslaunch test_interface triple_drone_mid360.launch
 ```
 
-## run the simulation with FUEL algorithm
+## Run the simulation with FUEL algorithm
 
 You should first change the branch to fuel_ubuntu20 branch. If you are using ubuntu 20.04, you should first download Nlopt and make install it in your environment. Then you can run the simulation by the command below:
 ```
