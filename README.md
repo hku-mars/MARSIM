@@ -7,20 +7,20 @@ The video is available on youtube: https://youtu.be/hiRtcq-5lN0 and
 【MARSIM: 轻量化雷达无人机仿真器】 https://www.bilibili.com/video/BV1M84y117KG
 
 <p align="center">
-  <a href="https://youtu.be/hiRtcq-5lN0" target="_blank"><img src="figures/coverfigure.png" alt="video" width="840" height="420" border="1" /></a>
+  <a href="https://youtu.be/hiRtcq-5lN0" target="_blank"><img src="figures/coverfigure.png" alt="video" width="800" height="400" border="1" /></a>
 </p>
 
 <p align="center">
 
-  <img src="figures/readme_setgoal.gif" width = "420" height = "237"/>
+  <img src="figures/readme_setgoal.gif" width = "400" height = "237"/>
 
-  <img src="figures/readme_dynobs.gif" width = "420" height = "237"/>
-
-
-  <img src="figures/readme_multiuav.gif" width = "420" height = "237"/>
+  <img src="figures/readme_dynobs.gif" width = "400" height = "237"/>
 
 
-  <img src="figures/readme_exploration.gif" width = "420" height = "237"/>
+  <img src="figures/readme_multiuav.gif" width = "400" height = "237"/>
+
+
+  <img src="figures/readme_exploration.gif" width = "400" height = "237"/>
 </p>
 
 ## Update
