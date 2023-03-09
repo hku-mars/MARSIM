@@ -1,0 +1,36 @@
+map_pub: {add_boundary: 0, downsample_res: 0.1, is_bridge: 0, map_offset_x: 0.0, map_offset_y: 0.0,
+  map_offset_z: 0.0}
+map_pub1: {downsample_res: 0.1, map_offset_x: 0.0, map_offset_y: 0.0, map_offset_z: 0.0}
+
+quad0_cascadePID_node: {angle_stable_time: 0.5, controller_rate: 200, damping_ratio: 1.0,
+  drone_id: 0, init_state_x: 0.0, init_state_y: 0.0, init_state_yaw: 0.0, init_state_z: 1.0,
+  quadrotor_name: quad_0}
+
+quad0_odom_visualization:
+  color: {a: 1.0, b: 1.0, g: 1.0, r: 0.0}
+  covariance_scale: 100.0
+  drone_id: 0
+  init_x: 0.0
+  init_y: 0.0
+  init_z: 1.0
+  mesh_resource: package://odom_visualization/meshes/yunque.dae
+  quadrotor_name: quad0
+  robot_scale: 1.0
+
+quad0_pcl_render_node: 
+{collision_range: 0.3, 
+collisioncheck_enable: 0, 
+curvature_limit: 100.0,
+  downsample_res: 0.1, 
+  drone_id: 0, 
+  dyn_mode: 0, 
+  dyn_velocity: 1.0, 
+  dynobj_enable: 1,
+  dynobject_num: 100, 
+  dynobject_size: 0.8, estimation_rate: 10.0, hash_cubesize: 5.0,
+  is_360lidar: 0, livox_linestep: 1.4, min_raylength: 1.0, output_pcd: 0, polar_resolution: 0.2,
+  quadrotor_name: quad_0, sensing_horizon: 30.0, sensing_rate: 10.0, uav_num: 1, use_avia_pattern: 1,
+  use_uav_extra_model: 1, vertical_fov: 77.2, yaw_fov: 70.4}
+quad0_quadrotor_dynamics: {init_state_x: 0.0, init_state_y: 0.0, init_state_z: 1.0,
+  mass: 1.9, quadrotor_name: quad_0, simulation_rate: 200}
+

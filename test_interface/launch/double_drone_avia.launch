@@ -1,7 +1,7 @@
 <launch>
     <arg name="use_gpu_" value="true"/>
 
-    <arg name="drone_num" value="2"/>
+    <arg name="drone_num" value="1"/>
 
     <arg name="frame_id" value="world"/>
     <arg name="global_cloud_topic" value="/map_generator/global_cloud"/>

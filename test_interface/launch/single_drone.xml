@@ -11,6 +11,7 @@
     <arg name="downsample_resolution_"/>
     <arg name="use_gpu"/>
     <arg name="use_uav_extra_model_"/>
+    
 
        <!-- <node pkg="bubble_planner" type="planning" name="quad_$(arg drone_id)_planner" output="screen">
            <rosparam command="load" file="$(find bubble_planner)/config/advanced_params.yaml"/>
@@ -104,9 +105,9 @@
 
             <param name="downsample_res" value="$(arg downsample_resolution_)"/>
 
-            <param name="dynobj_enable" value="0"/>
+            <param name="dynobj_enable" value="1"/>
             <param name="dynobject_size" value="0.8"/>
-            <param name="dynobject_num" value="10"/>
+            <param name="dynobject_num" value="100"/>
             <param name="dyn_mode" value="0"/><!-- 0 for a=0, 1 for a=g, 2 for random walk -->
             <param name="dyn_velocity" value="1.0"/>
 
