@@ -39,6 +39,7 @@
                 <remap from="~odometry" to="/quad_$(arg drone_id)/$(arg odom_topic)"/>
             </node>
             <rosparam file = "$(find test_interface)/config/avia_withGPU.yaml" command = "load" subst_value = "true"/>
+            <rosparam file = "$(find test_interface)/config/Special_cases.yaml" command = "load" subst_value = "true"/>
         </group>
 
         <group if="$(eval lidar_type == 'mid360')">
@@ -48,6 +49,7 @@
                 <remap from="~odometry" to="/quad_$(arg drone_id)/$(arg odom_topic)"/>
             </node>
             <rosparam file = "$(find test_interface)/config/mid360_withGPU.yaml" command = "load" subst_value = "true"/>
+            <rosparam file = "$(find test_interface)/config/Special_cases.yaml" command = "load" subst_value = "true"/>
         </group>
 
         <group if="$(eval lidar_type == 'os128')">
@@ -57,6 +59,7 @@
                 <remap from="~odometry" to="/quad_$(arg drone_id)/$(arg odom_topic)"/>
             </node>
             <rosparam file = "$(find test_interface)/config/os128_withGPU.yaml" command = "load" subst_value = "true"/>
+            <rosparam file = "$(find test_interface)/config/Special_cases.yaml" command = "load" subst_value = "true"/>
         </group>
 
     </group>
@@ -70,6 +73,7 @@
                 <remap from="~odometry" to="/quad_$(arg drone_id)/$(arg odom_topic)"/>
             </node>
             <rosparam file = "$(find test_interface)/config/avia_withoutGPU.yaml" command = "load" subst_value = "true"/>
+            <rosparam file = "$(find test_interface)/config/Special_cases.yaml" command = "load" subst_value = "true"/>
         </group>
 
         <group if="$(eval lidar_type == 'mid360')">
@@ -79,6 +83,7 @@
                 <remap from="~odometry" to="/quad_$(arg drone_id)/$(arg odom_topic)"/>
             </node>
             <rosparam file = "$(find test_interface)/config/mid360_withoutGPU.yaml" command = "load" subst_value = "true"/>
+            <rosparam file = "$(find test_interface)/config/Special_cases.yaml" command = "load" subst_value = "true"/>
         </group>        
 
         <group if="$(eval lidar_type == 'os128')">
@@ -88,6 +93,7 @@
                 <remap from="~odometry" to="/quad_$(arg drone_id)/$(arg odom_topic)"/>
             </node>
             <rosparam file = "$(find test_interface)/config/os128_withoutGPU.yaml" command = "load" subst_value = "true"/>
+            <rosparam file = "$(find test_interface)/config/Special_cases.yaml" command = "load" subst_value = "true"/>
         </group>        
     </group>
 
