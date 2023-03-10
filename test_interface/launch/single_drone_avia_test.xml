@@ -1,4 +1,16 @@
 <launch>
+    <arg name="drone_id"/>
+    <arg name="uav_num_"/>
+    <arg name="init_x_"/>
+    <arg name="init_y_"/>
+    <arg name="init_z_"/>
+    <arg name="init_yaw"/>
+    <arg name="odom_topic"/>
+    <arg name="lidar_type"/>
+    <arg name="map_name_"/>
+    <arg name="downsample_resolution_"/>
+    <arg name="use_gpu"/>
+    <arg name="use_uav_extra_model_"/>
 
     <node pkg="mars_drone_sim" name="quad$(arg drone_id)_quadrotor_dynamics" type="quadrotor_dynamics_node" output="log">
         <remap from="~odom" to="/quad_$(arg drone_id)/$(arg odom_topic)"/>
@@ -60,48 +72,13 @@
             <rosparam file = "$(find test_interface)/config/avia_withoutGPU.yaml" command = "load" subst_value = "true"/>
         </group>
 
-
-        <!-- VLP-32 -->
-launch-prefix="gdb --ex run -args"
         <group if="$(eval lidar_type == 'mid360')">
             <node pkg="local_sensing_node" type="pcl_render_node"
                 name="quad$(arg drone_id)_pcl_render_node" output="screen" > <!--  -->
                 <remap from="~global_map" to="/map_generator/global_cloud"/>
                 <remap from="~odometry" to="/quad_$(arg drone_id)/$(arg odom_topic)"/>
-
-                <param name="drone_id" value="$(arg drone_id)"/>
-                <param name="quadrotor_name" value="quad_$(arg drone_id)"/>
-                <param name="uav_num" value="$(arg uav_num_)"/>
-                <param name="is_360lidar" value="1"/>
-                <param name="sensing_horizon" value="15.0"/>
-                <param name="sensing_rate" value="10.0"/>
-                <param name="estimation_rate" value="10.0"/>
-                <param name="polar_resolution" value="0.2"/>
-                <param name="yaw_fov" value="360.0"/>
-                <param name="vertical_fov" value="90.0"/>
-                <param name="min_raylength" value="1.0"/>
-                <param name="livox_linestep" value="1.4"/>
-                <param name="curvature_limit" value="100.0"/>
-                <param name="hash_cubesize" value="5.0"/>
-                <param name="use_avia_pattern" value="0"/>
-                <param name="use_vlp32_pattern" value="0"/>
-                <param name="use_minicf_pattern" value="1"/>
-
-                <param name="downsample_res" value="$(arg downsample_resolution_)"/>
-
-                <param name="dynobj_enable" value="0"/>
-                <param name="dynobject_size" value="0.6"/>
-                <param name="dynobject_num" value="30"/>
-                <param name="dyn_mode" value="2"/><!-- 0 for a=0, 1 for a=g, 2 for random walk -->
-                <param name="dyn_velocity" value="3.0"/>
-
-                <param name="use_uav_extra_model" value="$(arg use_uav_extra_model_)"/>
-
-                <!-- collision parameter -->
-                <param name="collisioncheck_enable" value="0"/>
-                <param name="collision_range" value="0.3"/>
-                <param name="output_pcd" value="0"/>
             </node>
+            <rosparam file = "$(find test_interface)/config/mid360_withoutGPU.yaml" command = "load" subst_value = "true"/>
         </group>        
 
         <group if="$(eval lidar_type == 'os128')">
@@ -109,42 +86,8 @@ launch-prefix="gdb --ex run -args"
                 name="quad$(arg drone_id)_pcl_render_node" output="screen"> <!--  -->
                 <remap from="~global_map" to="/map_generator/global_cloud"/>
                 <remap from="~odometry" to="/quad_$(arg drone_id)/$(arg odom_topic)"/>
-
-                <param name="drone_id" value="$(arg drone_id)"/>
-                <param name="quadrotor_name" value="quad_$(arg drone_id)"/>
-                <param name="uav_num" value="$(arg uav_num_)"/>
-                <param name="is_360lidar" value="1"/>
-                <param name="sensing_horizon" value="15.0"/>
-                <param name="sensing_rate" value="10.0"/>
-                <param name="estimation_rate" value="10.0"/>
-                <param name="polar_resolution" value="0.2"/>
-                <param name="yaw_fov" value="360.0"/>
-                <param name="vertical_fov" value="60.0"/>
-                <param name="min_raylength" value="1.0"/>
-                <param name="livox_linestep" value="1.4"/>
-                <param name="curvature_limit" value="100.0"/>
-                <param name="hash_cubesize" value="5.0"/>
-                <param name="use_avia_pattern" value="0"/>
-                <param name="use_vlp32_pattern" value="0"/>
-                <param name="use_minicf_pattern" value="0"/>
-                <param name="use_os128_pattern" value="1"/>
-
-                <param name="downsample_res" value="$(arg downsample_resolution_)"/>
-
-                <param name="dynobj_enable" value="0"/>
-                <param name="dynobject_size" value="0.8"/>
-                <param name="dynobject_num" value="10"/>
-                <param name="dyn_mode" value="0"/><!-- 0 for a=0, 1 for a=g, 2 for random walk -->
-                <param name="dyn_velocity" value="1.0"/>
-
-                <param name="use_uav_extra_model" value="$(arg use_uav_extra_model_)"/>
-
-                <!-- collision parameter -->
-                <param name="collisioncheck_enable" value="0"/>
-                <param name="collision_range" value="0.3"/>
-                <param name="output_pcd" value="0"/>
-
             </node>
+            <rosparam file = "$(find test_interface)/config/os128_withoutGPU.yaml" command = "load" subst_value = "true"/>
         </group>        
     </group>
 
