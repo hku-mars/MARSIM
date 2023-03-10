@@ -25,6 +25,9 @@ The video is available on youtube: https://youtu.be/hiRtcq-5lN0
 
 ## Update
 
+# Xue ruize: parameterlized for xml file to make it simpler!
+We could change the dynamic model, in test_interface/config/Special_cases!!!and this will be load to node parameter each cases!
+
 Ubuntu 20.04 is also supported in ubuntu20 branch.
 
 **Ten realistic maps (low and high resolution) have been realeased in the realease packages.**
