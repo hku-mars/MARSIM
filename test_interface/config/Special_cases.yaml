@@ -1,7 +1,7 @@
 quad$(arg drone_id)_pcl_render_node:
-	dynobj_enable: 1
-	dynobject_size: 0.8
-	dynobject_num: 100
+  dynobj_enable: 0
+  dynobject_size: 0.8
+  dynobject_num: 100
   dyn_mode: 0 # 0 for a=0, 1 for a=g, 2 for random walk
   dyn_velocity: 1.0
   use_uav_extra_model: $(arg use_uav_extra_model_)
