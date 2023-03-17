@@ -27,6 +27,10 @@ include_directories(
 )
 
 add_executable (map_pub src/map_publisher.cpp )
+add_executable (PC_dealing src/PC_dealing.cpp )
 target_link_libraries(map_pub
+  ${catkin_LIBRARIES}
+  ${PCL_LIBRARIES})
+target_link_libraries(PC_dealing
   ${catkin_LIBRARIES}
   ${PCL_LIBRARIES})
