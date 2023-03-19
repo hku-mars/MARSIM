@@ -17,6 +17,7 @@
         <param name="map_offset_y" value="0.0"/>   
         <param name="map_offset_z" value="0.0"/>   
    </node>
+    <node pkg = "map_generator" name = "PC_dealing" type = "PC_dealing" output = "screen"/>
 
     <group if="$(arg use_gpu_)">
         <node pkg="map_generator" name="map_pub1" type="map_pub" output="screen"

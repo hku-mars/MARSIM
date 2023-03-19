@@ -6,41 +6,49 @@
 #include <pcl/io/pcd_io.h>
 #include <fstream>
 
+// Add a global frame counter
+size_t frame_counter = 0;
+
 void pointCloudCallback(const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
 {
   // Convert the sensor_msgs::PointCloud2 message to a pcl::PointCloud<pcl::PointXYZ> object
   pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
   pcl::fromROSMsg(*cloud_msg, *cloud);
-  //please remember to change your file location!!!!!!!
   
-  std::ofstream csv_file("/home/ruize/PC_dealing_results.csv");
+  // Open the CSV file in append mode, preserving previous data
+  std::ofstream csv_file("/home/ruize/PC_dealing_results.csv", std::ios::app);
+
   if (!csv_file.is_open())
   {
     ROS_ERROR("Failed to open the CSV file for writing");
     return;
   }
 
-  // Write the header row to the CSV file
-  csv_file << "index,r,theta,phi\n";
+  // Write the header row to the CSV file only for the first frame
+  if (frame_counter == 0)
+  {
+    csv_file << "frame,index,r,theta,phi\n";
+  }
+
   // Iterate through the points in the point cloud and convert them to polar coordinates
   for (size_t i = 0; i < cloud->points.size(); ++i)
   {
     float x = cloud->points[i].x;
     float y = cloud->points[i].y;
     float z = cloud->points[i].z;
-    // ROS_INFO("--------------------------------------------------");
-    // ROS_INFO("the %zu th point's information the r = %f theta = %f and phi = %f",i,x,y,z);
     
     float r = std::sqrt(x * x + y * y + z * z); // radius
     float theta = std::atan2(y, x); // azimuth angle in radians [-π, π]
     float phi = std::acos(z / r); // polar angle in radians [0, π]
 
-    csv_file << i << "," << r << "," << theta << "," << phi << "\n";
-    // ROS_INFO("--------------------------------------------------");
-    // ROS_INFO("the %zu th point's information the r = %f theta = %f and phi = %f",i,r,theta,phi);
+    // Include the frame_counter in the CSV file
+    csv_file << frame_counter << "," << i << "," << r << "," << theta << "," << phi << "\n";
   }
   csv_file.close();
-  ROS_INFO("Polar coordinates saved to PC_dealing_results.csv");
+  ROS_INFO("Polar coordinates of frame %zu saved to PC_dealing_results.csv", frame_counter);
+
+  // Increment the frame counter
+  frame_counter++;
 }
 
 int main(int argc, char** argv)
