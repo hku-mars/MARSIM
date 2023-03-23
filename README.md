@@ -4,6 +4,7 @@ MARSIM: A light-weight point-realistic simulator for LiDAR-based UAVs
 1. Reconstruct cloud maps from real environments scanned by LiDARs
 2. Lower Hardware platform required; the simulation could be processed on PC with GPU acceleration
 3. Supporting three types of dynamic obstacles, multi-UAV system simulations, and mechanical spinning LiDAR Models
+
 Paper is available on Arxiv: https://arxiv.org/abs/2211.10716
 
 The video is available on youtube: https://youtu.be/hiRtcq-5lN0 and 
