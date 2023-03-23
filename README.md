@@ -1,6 +1,6 @@
 # MARSIM
 MARSIM: A light-weight point-realistic simulator for LiDAR-based UAVs
-## Achievements
+## Breifly Introduction and Achievements
 1. Reconstruct cloud maps from real environments scanned by LiDARs
 2. Lower Hardware platform required; the simulation could be processed on PC with GPU acceleration
 3. Supporting three types of dynamic obstacles, multi-UAV system simulations, and mechanical spinning LiDAR Models
