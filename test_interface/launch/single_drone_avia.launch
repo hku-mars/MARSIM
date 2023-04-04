@@ -1,5 +1,5 @@
 <launch>
-    <arg name="use_gpu_" value="false"/>
+    <arg name="use_gpu_" value="true"/>
 
     <arg name="drone_num" value="1"/>
 

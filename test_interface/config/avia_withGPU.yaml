@@ -1,0 +1,27 @@
+quad$(arg drone_id)_pcl_render_node:
+  drone_id: $(arg drone_id)
+  quadrotor_name: quad_$(arg drone_id)
+  uav_num: $(arg uav_num_)
+  is_360lidar: 0
+  sensing_horizon: 30.0
+  sensing_rate: 10.0
+  estimation_rate: 10.0
+  polar_resolution: 0.2
+  yaw_fov: 70.4
+  vertical_fov: 77.2
+  min_raylength: 1.0
+  livox_linestep: 1.4
+  curvature_limit: 100.0
+  hash_cubesize: 5.0
+  use_avia_pattern: 1
+  downsample_res: $(arg downsample_resolution_)
+
+  dynobj_enable: 1
+  dynobject_size: 0.8
+  dynobject_num: 100
+  dyn_mode: 0 # 0 for a=0, 1 for a=g, 2 for random walk
+  dyn_velocity: 1.0
+  use_uav_extra_model: $(arg use_uav_extra_model_)
+  collisioncheck_enable: 0
+  collision_range: 0.3
+  output_pcd: 0

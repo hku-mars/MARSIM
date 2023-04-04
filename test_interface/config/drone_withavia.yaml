@@ -1,9 +1,0 @@
-use_gpu: false
-drone_num: 1
-frame_id: world
-odom_topic: /lidar_slam/odom
-
-map_name: /home/dji/meshmap/lowres/small_forest01cutoff.pcd
-downsample_resolution: 0.1
-
-use_uav_extra_model: 1

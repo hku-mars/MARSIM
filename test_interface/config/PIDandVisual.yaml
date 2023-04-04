@@ -1,0 +1,35 @@
+quad$(arg drone_id)_quadrotor_dynamics:
+  mass: 1.9
+  simulation_rate: 200
+  quadrotor_name: quad_$(arg drone_id)
+  init_state_x: $(arg init_x_)
+  init_state_y: $(arg init_y_)
+  init_state_z: $(arg init_z_)
+
+quad$(arg drone_id)_cascadePID_node:
+  drone_id: $(arg drone_id)
+  controller_rate: 200
+  quadrotor_name: quad_$(arg drone_id)
+  init_state_x: $(arg init_x_)
+  init_state_y: $(arg init_y_)
+  init_state_z: $(arg init_z_)
+  init_state_yaw: $(arg init_yaw)
+  angle_stable_time: 0.5
+  damping_ratio: 1.0
+  
+
+quad$(arg drone_id)_odom_visualization:
+
+  init_x: $(arg init_x_)
+  init_y: $(arg init_y_)
+  init_z: $(arg init_z_)
+  color/a: 1.0
+  color/r: 0.0
+  color/g: 1.0
+  color/b: 1.0
+  covariance_scale: 100.0
+  robot_scale: 1.0
+  quadrotor_name: quad$(arg drone_id)
+  drone_id: $(arg drone_id)
+  mesh_resource: package://odom_visualization/meshes/yunque.dae
+

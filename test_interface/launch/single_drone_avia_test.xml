@@ -1,0 +1,101 @@
+<launch>
+    <arg name="drone_id"/>
+    <arg name="uav_num_"/>
+    <arg name="init_x_"/>
+    <arg name="init_y_"/>
+    <arg name="init_z_"/>
+    <arg name="init_yaw"/>
+    <arg name="odom_topic"/>
+    <arg name="lidar_type"/>
+    <arg name="map_name_"/>
+    <arg name="downsample_resolution_"/>
+    <arg name="use_gpu"/>
+    <arg name="use_uav_extra_model_"/>
+
+    <node pkg="mars_drone_sim" name="quad$(arg drone_id)_quadrotor_dynamics" type="quadrotor_dynamics_node" output="log">
+        <remap from="~odom" to="/quad_$(arg drone_id)/$(arg odom_topic)"/>
+        <remap from="~cmd_RPM" to="/quad_$(arg drone_id)/cmdRPM"/>
+        <remap from="~imu" to="/quad_$(arg drone_id)/imu"/>
+    </node>
+    <node pkg="cascadePID" name="quad$(arg drone_id)_cascadePID_node" type="cascadePID_node">
+        <remap from="~odom" to="/quad_$(arg drone_id)/$(arg odom_topic)"/>
+        <remap from="~cmd_RPM" to="/quad_$(arg drone_id)/cmdRPM"/>
+        <remap from="~cmd_pose" to="/goal"/>
+        <remap from="~position_cmd" to="/quad_$(arg drone_id)/planning/pos_cmd"/>
+    </node>
+    <node pkg="odom_visualization" name="quad$(arg drone_id)_odom_visualization" type="odom_visualization" output="screen">
+        <remap from="~odom" to="/quad_$(arg drone_id)/$(arg odom_topic)"/>
+        <remap from="~cmd" to="/quad_$(arg drone_id)/pos_cmd"/>
+    </node>
+
+    <rosparam file = "$(find test_interface)config/PIDandVisual.yaml" command ="load" subst_value = "true"/>
+       
+    <group if="$(arg use_gpu)">
+
+        <group if="$(eval lidar_type == 'avia')">
+            <node pkg="local_sensing_node" type="opengl_render_node" name="quad$(arg drone_id)_pcl_render_node" output="screen" 
+                args="$(arg map_name_)">
+                <remap from="~global_map" to="/map_generator/global_cloud"/>
+                <remap from="~odometry" to="/quad_$(arg drone_id)/$(arg odom_topic)"/>
+            </node>
+            <rosparam file = "$(find test_interface)/config/avia_withGPU.yaml" command = "load" subst_value = "true"/>
+            <rosparam file = "$(find test_interface)/config/Special_cases.yaml" command = "load" subst_value = "true"/>
+        </group>
+
+        <group if="$(eval lidar_type == 'mid360')">
+            <node pkg="local_sensing_node" type="opengl_render_node" name="quad$(arg drone_id)_pcl_render_node" output="screen" 
+                args="$(arg map_name_)">
+                <remap from="~global_map" to="/map_generator/global_cloud"/>
+                <remap from="~odometry" to="/quad_$(arg drone_id)/$(arg odom_topic)"/>
+            </node>
+            <rosparam file = "$(find test_interface)/config/mid360_withGPU.yaml" command = "load" subst_value = "true"/>
+            <rosparam file = "$(find test_interface)/config/Special_cases.yaml" command = "load" subst_value = "true"/>
+        </group>
+
+        <group if="$(eval lidar_type == 'os128')">
+            <node pkg="local_sensing_node" type="opengl_render_node" name="quad$(arg drone_id)_pcl_render_node" output="screen" 
+                args="$(arg map_name_)">
+                <remap from="~global_map" to="/map_generator/global_cloud"/>
+                <remap from="~odometry" to="/quad_$(arg drone_id)/$(arg odom_topic)"/>
+            </node>
+            <rosparam file = "$(find test_interface)/config/os128_withGPU.yaml" command = "load" subst_value = "true"/>
+            <rosparam file = "$(find test_interface)/config/Special_cases.yaml" command = "load" subst_value = "true"/>
+        </group>
+
+    </group>
+
+    <group unless="$(arg use_gpu)">
+        <!-- Livox Avia launch-prefix="gdb -ex run -args" -->
+        <group if="$(eval lidar_type == 'avia')">
+            <node pkg="local_sensing_node" type="pcl_render_node" name="quad$(arg drone_id)_pcl_render_node"
+                output="screen">
+                <remap from="~global_map" to="/map_generator/global_cloud"/>
+                <remap from="~odometry" to="/quad_$(arg drone_id)/$(arg odom_topic)"/>
+            </node>
+            <rosparam file = "$(find test_interface)/config/avia_withoutGPU.yaml" command = "load" subst_value = "true"/>
+            <rosparam file = "$(find test_interface)/config/Special_cases.yaml" command = "load" subst_value = "true"/>
+        </group>
+
+        <group if="$(eval lidar_type == 'mid360')">
+            <node pkg="local_sensing_node" type="pcl_render_node"
+                name="quad$(arg drone_id)_pcl_render_node" output="screen" > <!--  -->
+                <remap from="~global_map" to="/map_generator/global_cloud"/>
+                <remap from="~odometry" to="/quad_$(arg drone_id)/$(arg odom_topic)"/>
+            </node>
+            <rosparam file = "$(find test_interface)/config/mid360_withoutGPU.yaml" command = "load" subst_value = "true"/>
+            <rosparam file = "$(find test_interface)/config/Special_cases.yaml" command = "load" subst_value = "true"/>
+        </group>        
+
+        <group if="$(eval lidar_type == 'os128')">
+            <node pkg="local_sensing_node" type="pcl_render_node"
+                name="quad$(arg drone_id)_pcl_render_node" output="screen"> <!--  -->
+                <remap from="~global_map" to="/map_generator/global_cloud"/>
+                <remap from="~odometry" to="/quad_$(arg drone_id)/$(arg odom_topic)"/>
+            </node>
+            <rosparam file = "$(find test_interface)/config/os128_withoutGPU.yaml" command = "load" subst_value = "true"/>
+            <rosparam file = "$(find test_interface)/config/Special_cases.yaml" command = "load" subst_value = "true"/>
+        </group>        
+    </group>
+
+
+</launch>
