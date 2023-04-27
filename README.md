@@ -1,9 +1,18 @@
 # MARSIM
 MARSIM: 一款轻量级、点云逼真的LiDAR无人机模拟器
 ## 目录
-[Achievements/ and/ Introduction](#Briefly Introduction and Achievements)
+[项目简介与成就](#项目简介与成就) 
 
-## Briefly Introduction and Achievements
+[更新](#更新) 
+
+[环境配置](#环境配置) 
+[单无人机仿真](#单无人机仿真) 
+[单无人机仿真的动态避障](#单无人机仿真的动态避障) 
+[多无人机仿真](#多无人机仿真) 
+[Fuel算法下的仿真](#Fuel算法下的仿真) 
+[声明](#声明)
+[未来愿景](#未来愿景)
+## 项目简介与成就
 1. 利用LiDAR扫描重建真实环境的点云地图
 2. 硬件平台要求低，可在具有GPU加速的个人电脑上进行仿真
 3. 支持三种类型的动态障碍物、多无人机系统仿真以及机械旋转LiDAR模型
@@ -29,7 +38,7 @@ MARSIM: 一款轻量级、点云逼真的LiDAR无人机模拟器
   <img src="figures/readme_exploration.gif" width = "400" height = "237"/>
 </p>
 
-## Update
+## 更新
 
 现已支持Ubuntu 20.04，可以在ubuntu20分支中找到。
 
@@ -43,9 +52,9 @@ MARSIM: 一款轻量级、点云逼真的LiDAR无人机模拟器
 
 
 
-## Prerequisited
+## 环境配置
 
-### Ubuntu and ROS
+### Ubuntu 和 ROS
 
 Ubuntu 16.04~20.04.  [ROS Installation](http://wiki.ros.org/ROS/Installation).
 
@@ -69,7 +78,7 @@ cd ..
 catkin_make
 ```
 
-## Run single drone simulation
+## 单无人机仿真
 
 ```
 source devel/setup.bash
@@ -88,19 +97,19 @@ roslaunch test_interface single_drone_avia.launch
 
 **如果您想使用MARSIM的GPU版本，请将参数"use_gpu"设置为true。**
 
-## Run single drone simulation with dynamic obstacles
+## 单无人机仿真的动态避障
 ```
 source devel/setup.bash
 roslaunch test_interface single_drone_mid360_dynobs.launch
 ```
 
-## Run multiple drones simulation
+## 多无人机仿真
 ```
 source devel/setup.bash
 roslaunch test_interface triple_drone_mid360.launch
 ```
 
-## Run the simulation with FUEL algorithm
+## Fuel算法下的仿真
 
 您首先需要将分支切换到fuel_ubuntu20分支。如果您使用的是Ubuntu 20.04，您应该首先下载Nlopt并将其安装在您的环境中。然后，您可以通过以下命令运行仿真：
 
@@ -110,8 +119,8 @@ roslaunch exploration_manager exploration.launch
 ```
 然后在Rviz上点击2Dgoal工具，随机点击地图，FUEL将自动运行。
 
-## Acknowledgments
+## 声明
 感谢 [FUEL](https://github.com/HKUST-Aerial-Robotics/FUEL.git)
 
-## Future
+## 未来愿景
 我们将很快发布更逼真的地图和功能。
