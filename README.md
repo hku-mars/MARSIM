@@ -6,19 +6,27 @@ MARSIM: 一款轻量级、点云逼真的LiDAR无人机模拟器
 [更新](#更新) 
 
 [环境配置](#环境配置) 
+
 [单无人机仿真](#单无人机仿真) 
+
 [单无人机仿真的动态避障](#单无人机仿真的动态避障) 
+
 [多无人机仿真](#多无人机仿真) 
+
 [Fuel算法下的仿真](#Fuel算法下的仿真) 
+
 [声明](#声明)
+
 [未来愿景](#未来愿景)
+
 ## 项目简介与成就
 1. 利用LiDAR扫描重建真实环境的点云地图
 2. 硬件平台要求低，可在具有GPU加速的个人电脑上进行仿真
 3. 支持三种类型的动态障碍物、多无人机系统仿真以及机械旋转LiDAR模型
 论文已在Arxiv上发布: https://arxiv.org/abs/2211.10716
 
-视频在YouTube上发布: https://youtu.be/hiRtcq-5lN0 and 
+视频在YouTube上发布: https://youtu.be/hiRtcq-5lN0 
+
 【MARSIM: 轻量化雷达无人机仿真器】 https://www.bilibili.com/video/BV1M84y117KG
 
 <p align="center">
