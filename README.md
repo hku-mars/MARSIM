@@ -100,7 +100,7 @@ roslaunch test_interface single_drone_avia.launch
 
 ```
 
-**如果您想使用MARSIM的GPU加速模式，请将参数"use_gpu"设置为true。**
+**如果想使用MARSIM的GPU加速模式，请将参数"use_gpu"设置为true。**
 
 ## 单无人机仿真的动态避障
 ```
@@ -116,7 +116,7 @@ roslaunch test_interface triple_drone_mid360.launch
 
 ## Fuel算法下的仿真
 
-您首先需要将分支切换到fuel_ubuntu20分支。如果您使用的是Ubuntu 20.04，您应该首先下载Nlopt并将其安装在您的ROS环境中。然后，您可以通过以下命令运行仿真：
+首先需要将分支切换到fuel_ubuntu20分支。如果使用的是Ubuntu 20.04，您应该首先下载Nlopt并将其安装在您的ROS环境中。然后，可以通过以下命令运行仿真：
 
 ```
 source devel/setup.bash
