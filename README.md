@@ -1,5 +1,5 @@
 # MARSIM
-MARSIM: 一款轻量级、点云逼真的LiDAR无人机模拟器
+MARSIM: 轻量化雷达无人机仿真器
 ## 目录
 [项目简介与成就](#项目简介与成就) 
 
@@ -23,9 +23,9 @@ MARSIM: 一款轻量级、点云逼真的LiDAR无人机模拟器
 1. 利用LiDAR扫描，把现实环境重建为点云地图。
 2. 硬件平台要求低，可在具有GPU加速的个人电脑上运行。
 3. 支持三种类型的动态障碍物仿真、同时可以进行多无人机系统仿真，以及支持旋转LiDAR的扫描的角度
-论文已在Arxiv上发布: https://arxiv.org/abs/2211.10716
+论文链接(Arxiv): https://arxiv.org/abs/2211.10716
 
-视频在YouTube上发布: https://youtu.be/hiRtcq-5lN0 
+YouTube视频: https://youtu.be/hiRtcq-5lN0 
 
 【MARSIM: 轻量化雷达无人机仿真器】 https://www.bilibili.com/video/BV1M84y117KG
 
