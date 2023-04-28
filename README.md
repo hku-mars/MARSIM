@@ -20,9 +20,9 @@ MARSIM: 一款轻量级、点云逼真的LiDAR无人机模拟器
 [未来愿景](#未来愿景)
 
 ## 项目简介与成就
-1. 利用LiDAR扫描重建真实环境的点云地图
-2. 硬件平台要求低，可在具有GPU加速的个人电脑上进行仿真
-3. 支持三种类型的动态障碍物、多无人机系统仿真以及机械旋转LiDAR模型
+1. 利用LiDAR扫描，把现实环境重建为点云地图。
+2. 硬件平台要求低，可在具有GPU加速的个人电脑上运行。
+3. 支持三种类型的动态障碍物仿真、同时可以进行多无人机系统仿真，以及支持旋转LiDAR的扫描的角度
 论文已在Arxiv上发布: https://arxiv.org/abs/2211.10716
 
 视频在YouTube上发布: https://youtu.be/hiRtcq-5lN0 
@@ -50,9 +50,6 @@ MARSIM: 一款轻量级、点云逼真的LiDAR无人机模拟器
 
 现已支持Ubuntu 20.04，可以在ubuntu20分支中找到。
 
-已在发布包中发布了十个逼真的地图（低分辨率和高分辨率）。
-
-已在fuel_ubuntu20分支中发布了与FUEL合并的新分支。
 
 **已在发布包中发布了十个逼真的地图（低分辨率和高分辨率）**
 
@@ -92,18 +89,18 @@ catkin_make
 source devel/setup.bash
 roslaunch test_interface single_drone_avia.launch
 ```
-在Rviz上点击3Dgoal工具，您可以给无人机发送位置指令来控制其飞行。
+在Rviz上点击3Dgoal，就可以给无人机发送位置指令了，我们可以观察到，无人机自动抵达他的目标位置。
 
-目前，我们为用户提供了几个启动文件，可以在test_interface/launch文件夹中找到。
+目前，我们为用户提供了几个Launch文件，可以在test_interface/launch文件夹中找到。
 
-您可以更改启动文件中的参数来更改地图和需要模拟的LiDAR。地图已上传至此仓库的发布文件中。
+您可以更改Launch文件中的参数来更改地图, 和需要模拟的LiDAR。地图已上传至此仓库的发布文件中。
 
 ```
     <arg name="map_name" value="$(find map_generator)/resource/small_forest01cutoff.pcd"/>
 
 ```
 
-**如果您想使用MARSIM的GPU版本，请将参数"use_gpu"设置为true。**
+**如果您想使用MARSIM的GPU加速模式，请将参数"use_gpu"设置为true。**
 
 ## 单无人机仿真的动态避障
 ```
@@ -119,7 +116,7 @@ roslaunch test_interface triple_drone_mid360.launch
 
 ## Fuel算法下的仿真
 
-您首先需要将分支切换到fuel_ubuntu20分支。如果您使用的是Ubuntu 20.04，您应该首先下载Nlopt并将其安装在您的环境中。然后，您可以通过以下命令运行仿真：
+您首先需要将分支切换到fuel_ubuntu20分支。如果您使用的是Ubuntu 20.04，您应该首先下载Nlopt并将其安装在您的ROS环境中。然后，您可以通过以下命令运行仿真：
 
 ```
 source devel/setup.bash
@@ -131,4 +128,4 @@ roslaunch exploration_manager exploration.launch
 感谢 [FUEL](https://github.com/HKUST-Aerial-Robotics/FUEL.git)
 
 ## 未来愿景
-我们将很快发布更逼真的地图和功能。
+我们将很快发布更高多真实的地图和功能。
