@@ -431,7 +431,7 @@ void opengl_pointcloud_render::read_pointcloud_fromfile(std::string map_filename
 
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) *6* (g_eigen_pt_vec.size()+0), g_eigen_pt_vec.data(), GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) *3* (g_eigen_pt_vec.size()+0), g_eigen_pt_vec.data(), GL_DYNAMIC_DRAW);
 
 
     // position attribute
