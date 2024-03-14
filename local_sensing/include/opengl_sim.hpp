@@ -1827,79 +1827,38 @@ void opengl_pointcloud_render::init_pointcloud_data()
     env_box.vertex_max[0] = round(global_mapmax.x/hash_cubesize) * hash_cubesize + 10*hash_cubesize;
     env_box.vertex_max[1] = round(global_mapmax.y/hash_cubesize) * hash_cubesize + 10*hash_cubesize;
     env_box.vertex_max[2] = round(global_mapmax.z/hash_cubesize) * hash_cubesize + 100*hash_cubesize;
-    fov_checker.Set_Env(env_box);
-    fov_checker.Set_BoxLength(hash_cubesize);
+    // fov_checker.Set_Env(env_box);
+    // fov_checker.Set_BoxLength(hash_cubesize);
 
     // scope_color(ANSI_COLOR_YELLOW_BOLD);
     cout << "Now initing the point cloud data: " << endl;
     g_eigen_tri_rgb_vec.clear();
     g_eigen_tri_pt_vec.clear();
-    g_pointcloud_vec.clear();
+    // g_pointcloud_vec.clear();
     g_eigen_pt_vec.clear();
-    g_eigen_rgb_vec.clear();
+    // g_eigen_rgb_vec.clear();
     g_total_point_size = cloud_color_mesh.size();
-    g_pointcloud_vec.resize(  cloud_color_mesh.size() * g_point_step );
+    // g_pointcloud_vec.resize(  cloud_color_mesh.size() * g_point_step );
     Eigen::Matrix<float, 3, 1>  eigen_pt;
     Eigen::Matrix<float, 3, 1 >  rgb_pt;
     g_eigen_pt_vec.resize( cloud_color_mesh.size()*2);
-    g_eigen_rgb_vec.reserve( cloud_color_mesh.size() );
+    // g_eigen_rgb_vec.reserve( cloud_color_mesh.size() );
     // points_index_infov.resize(cloud_color_mesh.size());
     for ( int i = 0; i < cloud_color_mesh.size(); i++ )
     {
-        g_pointcloud_vec[ i * g_point_step ] = cloud_color_mesh.points[ i ].x;
-        g_pointcloud_vec[ i * g_point_step + 1 ] = cloud_color_mesh.points[ i ].y;
-        g_pointcloud_vec[ i * g_point_step + 2 ] = cloud_color_mesh.points[ i ].z;
+        // g_pointcloud_vec[ i * g_point_step ] = cloud_color_mesh.points[ i ].x;
+        // g_pointcloud_vec[ i * g_point_step + 1 ] = cloud_color_mesh.points[ i ].y;
+        // g_pointcloud_vec[ i * g_point_step + 2 ] = cloud_color_mesh.points[ i ].z;
         
         eigen_pt << cloud_color_mesh.points[ i ].x, cloud_color_mesh.points[ i ].y, cloud_color_mesh.points[ i ].z;
         rgb_pt << 0,0,1;
         // rgb_pt << cloud_color_mesh.points[ i ].r, cloud_color_mesh.points[ i ].g, cloud_color_mesh.points[ i ].b;
         
-        //purple
-        // rgb_pt << (cloud_color_mesh.points[i].z+2)/8 * 255, 0,(cloud_color_mesh.points[i].z+2)/8* 255;//, cloud_color_mesh.points[i].z /6* 255
-        
-        // //try draw cube triangles
-        // float length = 0.02;
-        // GLfloat x_min = eigen_pt(0) - 0.5*length;
-        // GLfloat x_max = eigen_pt(0) + 0.5*length;
-        // GLfloat y_min = eigen_pt(1) - 0.5*length;
-        // GLfloat y_max = eigen_pt(1) + 0.5*length;
-        // GLfloat z_min = eigen_pt(2) - 0.5*length;
-        // GLfloat z_max = eigen_pt(2) + 0.5*length;
-        // GLfloat verts[] = {
-        // x_min,y_min,z_max,  x_max,y_min,z_max,  x_min,y_max,z_max,  x_max,y_max,z_max,  // FRONT
-        // x_min,y_min,z_min,  x_min,y_max,z_min,  x_max,y_min,z_min,  x_max,y_max,z_min,  // BACK
-        // x_min,y_min,z_max,  x_min,y_max,z_max,  x_min,y_min,z_min,  x_min,y_max,z_min,  // LEFT
-        // x_max,y_min,z_min,  x_max,y_max,z_min,  x_max,y_min,z_max,  x_max,y_max,z_max,  // RIGHT
-        // x_min,y_max,z_max,  x_max,y_max,z_max,  x_min,y_max,z_min,  x_max,y_max,z_min,  // TOP
-        // x_min,y_min,z_max,  x_min,y_min,z_min,  x_max,y_min,z_max,  x_max,y_min,z_min   // BOTTOM
-        // };
-        // // g_eigen_pt_vec[ i*24 ] << x_min,y_min,z_max;
-        // // g_eigen_pt_vec[ i*24 + 1 ] << x_max,y_min,z_max;
-        // for(int j = 0;j<24;j++)
-        // {
-        //     g_eigen_pt_vec[ i*24 + j ] << verts[j*3],verts[j*3+1],verts[j*3+2];
-        // }
 
-        //try hsv
-        // HSV hsv;
-        // BGR bgr;
-        // hsv.h = (cloud_color_mesh.points[i].z+2)/8 * 360;
-        // hsv.s = 1;
-        // hsv.v = 1;
-        // HSV2BGR(hsv, bgr);
-        // rgb_pt << bgr.b, bgr.g, bgr.r;
-
-        //set normal value as rgb values
-        // Eigen::Vector3f normal;
-        // normal << pointcloud_normals->points[i].normal_x, pointcloud_normals->points[i].normal_y, pointcloud_normals->points[i].normal_z;
-        // normal.normalize();
-        // rgb_pt << floor(normal(0) *0.5* sizeof(uchar)), \
-        //         floor(normal(1) *0.5* sizeof(uchar)), \
-        //         floor(normal(2) *0.5* sizeof(uchar));
         
         g_eigen_pt_vec[ 2*i ] = eigen_pt;
         g_eigen_pt_vec[ 2*i+1 ] = rgb_pt;
-        g_eigen_rgb_vec[ i ] = rgb_pt;
+        // g_eigen_rgb_vec[ i ] = rgb_pt;
 
         //put pts into fov boxes
         pt_in = cloud_color_mesh.points[i];
@@ -1910,8 +1869,8 @@ void opengl_pointcloud_render::init_pointcloud_data()
 
         long int box_index = ind_x + ind_y*cube_numx + ind_z*cube_numx*cube_numy;
         // point_hashmap.insert(pair<int, >(box_index, pt_in));
-        point_hashmap[box_index].push_back(pt_in);
-        pointindex_hashmap[box_index].push_back(i);
+        // point_hashmap[box_index].push_back(pt_in);
+        // pointindex_hashmap[box_index].push_back(i);
 
         //EBO index vector
         // if(eigen_pt(1)>5.0)
@@ -1921,25 +1880,10 @@ void opengl_pointcloud_render::init_pointcloud_data()
         
     }
 
-    // g_eigen_tri_pt_vec.resize(0);
-    // g_eigen_tri_rgb_vec.resize();
-    // for(int i =0 ; i < mesh.polygons.size(); i++)
-    // {
-    //     int tri_a = mesh.polygons[i].vertices[0];
-    //     int tri_b = mesh.polygons[i].vertices[1];
-    //     int tri_c = mesh.polygons[ i ].vertices[ 2 ];
-
-    //     g_eigen_tri_pt_vec[ 3 * i ] = g_eigen_pt_vec[ tri_a ];
-    //     g_eigen_tri_pt_vec[ 3 * i + 1 ] = g_eigen_pt_vec[ tri_b ];
-    //     g_eigen_tri_pt_vec[ 3 * i + 2 ] = g_eigen_pt_vec[ tri_c ];
-
-    //     g_eigen_tri_rgb_vec[ 3 * i ] = g_eigen_rgb_vec[ tri_a ];
-    //     g_eigen_tri_rgb_vec[ 3 * i + 1 ] = g_eigen_rgb_vec[ tri_b ];
-    //     g_eigen_tri_rgb_vec[ 3 * i + 2 ] = g_eigen_rgb_vec[ tri_c ];
-    // }
-    
     cout << "Number of points = " << g_eigen_pt_vec.size() / 20000.0 << "X 10000" << endl;
     cout << "Number of faces = " << g_eigen_tri_pt_vec.size() / 10000.0 << "X 10000" << endl;
+
+    cloud_color_mesh.clear();
 }
 
 
