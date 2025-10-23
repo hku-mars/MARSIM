@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <fstream>
 #include <iostream>
-#include <ros/package.h>
+#include <ament_index_cpp/get_package_share_directory.hpp>
 
 using namespace std;
 using namespace Eigen;
@@ -85,7 +85,7 @@ cascadePID::~cascadePID()
 void cascadePID::setdroneid(int id){
     droneid = id;
 
-    pkg_path = ros::package::getPath("cascadePID");
+    pkg_path = ament_index_cpp::get_package_share_directory("cascadePID");
     pkg_path.append("/data/log_" + std::to_string(droneid) + ".txt");
     std::cout << "\nFound pkg_path = " << pkg_path << std::endl;
     myfile.open(pkg_path.c_str(), std::ios_base::out);
@@ -139,6 +139,7 @@ void cascadePID::Quat2EulerAngle(const Quaterniond& q_input, double& roll, doubl
 
 void cascadePID::setInternal(double m, Matrix3d I, double arm, double kF)
 {
+    mass = m;  // Fix: Actually set the mass!
     Internal_mat = I;
     arm_length = arm;
     k_F = kF;

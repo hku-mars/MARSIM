@@ -1,4 +1,4 @@
-Header header
+std_msgs/Header header
 
 float64 des_v_x
 float64 des_v_y

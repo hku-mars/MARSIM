@@ -1,32 +1,45 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.8)
 project(map_generator)
 
-set(CMAKE_BUILD_TYPE "Release")
-set(CMAKE_CXX_FLAGS "-std=c++14")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Wall -g")
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
 
-find_package(catkin REQUIRED COMPONENTS
-  roscpp
-  rospy
-  std_msgs
-  geometry_msgs
-  pcl_conversions
-) 
+# find dependencies
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(pcl_conversions REQUIRED)
 find_package(PCL REQUIRED)
-find_package(Eigen3 REQUIRED)
 
-catkin_package(
-  CATKIN_DEPENDS roscpp std_msgs
+add_executable(map_pub src/map_publisher.cpp)
+target_include_directories(map_pub PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_compile_features(map_pub PUBLIC c_std_99 cxx_std_17)
+
+ament_target_dependencies(
+  map_pub
+  "rclcpp"
+  "std_msgs"
+  "sensor_msgs"
+  "pcl_conversions"
+  "PCL"
 )
 
-include_directories(
-# include
-  ${catkin_INCLUDE_DIRS}
-  ${EIGEN3_INCLUDE_DIR}
-  ${PCL_INCLUDE_DIRS}
-)
+install(TARGETS map_pub
+  DESTINATION lib/${PROJECT_NAME})
 
-add_executable (map_pub src/map_publisher.cpp )
-target_link_libraries(map_pub
-  ${catkin_LIBRARIES}
-  ${PCL_LIBRARIES})
+# Install resource files
+install(DIRECTORY resource/
+  DESTINATION share/${PROJECT_NAME}/resource/)
+
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  set(ament_cmake_copyright_FOUND TRUE)
+  set(ament_cmake_cpplint_FOUND TRUE)
+  ament_lint_auto_find_test_dependencies()
+endif()
+
+ament_package()

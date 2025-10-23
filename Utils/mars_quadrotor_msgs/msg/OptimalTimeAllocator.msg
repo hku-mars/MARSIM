@@ -1,7 +1,7 @@
-Header header
+std_msgs/Header header
 
-time start_time
-time final_time
+builtin_interfaces/Time start_time
+builtin_interfaces/Time final_time
 
 # the trajectory id, starts from "1".
 uint32 trajectory_id
@@ -16,7 +16,7 @@ uint32 action
 
 # the vector of all 'K' number of each piece of the time profile.
 int32[] K
-int32   K_max
+int32   k_max
 
 # the a, b, c, d parameters of the TOPP time profile.
 float64[] a

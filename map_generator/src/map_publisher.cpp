@@ -2,8 +2,8 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
-#include <ros/ros.h>
-#include <sensor_msgs/PointCloud2.h>
+#include <rclcpp/rclcpp.hpp>
+#include <sensor_msgs/msg/point_cloud2.hpp>
 #include <pcl/common/common.h>
 
 // #include <pcl/point_types.h>
@@ -23,7 +23,7 @@
 #include <pcl/io/ply_io.h>
 #include <pcl/filters/statistical_outlier_removal.h>
 #include <pcl/search/impl/kdtree.hpp>
-#include <ros/package.h>
+#include <ament_index_cpp/get_package_share_directory.hpp>
 #include <vector>
 
 typedef pcl::PointXYZ PointT;
@@ -53,7 +53,8 @@ int minus_twopointcloud(pcl::PointCloud<pcl::PointXYZ>& cloud_input, pcl::PointC
     cloud_output.points.push_back(cloud_input.points[i]);
   }
   
-  ROS_INFO("AFTER MINUS, points count = %d", cloud_output.points.size());
+  // ROS_INFO replaced with cout for now
+  std::cout << "AFTER MINUS, points count = " << cloud_output.points.size() << std::endl;
 
   return cloud_output.points.size();
 
@@ -61,21 +62,27 @@ int minus_twopointcloud(pcl::PointCloud<pcl::PointXYZ>& cloud_input, pcl::PointC
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "map_recorder");
-  ros::NodeHandle node("~");
+  rclcpp::init(argc, argv);
+  auto node = rclcpp::Node::make_shared("map_recorder");
 
-  node.getParam("add_boundary", add_boundary);
-  node.getParam("is_bridge", is_bridge);
-  node.getParam("downsample_res", downsample_res);
+  node->declare_parameter("add_boundary", 0);
+  node->declare_parameter("is_bridge", 0);
+  node->declare_parameter("downsample_res", 0.1);
+  node->declare_parameter("map_offset_x", 0.0);
+  node->declare_parameter("map_offset_y", 0.0);
+  node->declare_parameter("map_offset_z", 0.0);
 
-  node.getParam("map_offset_x", map_offset_x);
-  node.getParam("map_offset_y", map_offset_y);
-  node.getParam("map_offset_z", map_offset_z);
+  add_boundary = node->get_parameter("add_boundary").as_int();
+  is_bridge = node->get_parameter("is_bridge").as_int();
+  downsample_res = node->get_parameter("downsample_res").as_double();
+  map_offset_x = node->get_parameter("map_offset_x").as_double();
+  map_offset_y = node->get_parameter("map_offset_y").as_double();
+  map_offset_z = node->get_parameter("map_offset_z").as_double();
 
-  ros::Publisher cloud_pub = node.advertise<sensor_msgs::PointCloud2>("/map_generator/global_cloud", 10, true);
+  auto cloud_pub = node->create_publisher<sensor_msgs::msg::PointCloud2>("/map_generator/global_cloud", 10);
   file_name = argv[1];
 
-  ros::Duration(1.0).sleep();
+  rclcpp::sleep_for(std::chrono::seconds(1));
 
   /* load cloud from pcd */
   pcl::PointCloud<pcl::PointXYZ> cloud_temp, cloud;
@@ -99,7 +106,7 @@ int main(int argc, char** argv)
   // reader.read<pcl::PointXYZ>(file_name2,*cloud_ply);
   // pcl::io::savePCDFile("/home/jackykong/motionplanning/FUEL_ws/src/FUEL/meshmap/hku_demo_pcd.pcd",*cloud_ply);
 
-  ROS_INFO("SUCCESS LOAD PCD FILE");
+  RCLCPP_INFO(node->get_logger(), "SUCCESS LOAD PCD FILE");
 
   //filter
   pcl::VoxelGrid<pcl::PointXYZ> _voxel_sampler;
@@ -144,7 +151,7 @@ int main(int argc, char** argv)
   
   pcl::getMinMax3D(cloud,global_mapmin,global_mapmax);
 
-  ROS_INFO("Map bound: x=%f,%f, y=%f,%f, z=%f,%f",global_mapmin.x,global_mapmax.x,global_mapmin.y,global_mapmax.y,global_mapmin.z,global_mapmax.z);
+  RCLCPP_INFO(node->get_logger(), "Map bound: x=%f,%f, y=%f,%f, z=%f,%f",global_mapmin.x,global_mapmax.x,global_mapmin.y,global_mapmax.y,global_mapmin.z,global_mapmax.z);
 
   if(add_boundary == 1)
   {
@@ -234,7 +241,7 @@ int main(int argc, char** argv)
 
   cloud = cloud_boundary+cloud;
 
-  ROS_INFO("ADD BOUNDARY!!!");
+  std::cout << "ADD BOUNDARY!!!" << std::endl;
   }
 
   // pcl::VoxelGrid<pcl::PointXYZ> _voxel_sampler;
@@ -338,10 +345,10 @@ int main(int argc, char** argv)
 
   // cout << "Publishing map..." << endl;
 
-  sensor_msgs::PointCloud2 msg;
+  sensor_msgs::msg::PointCloud2 msg;
   pcl::toROSMsg(cloud, msg);
   msg.header.frame_id = "world";
-  ROS_INFO("Map point size = %d", cloud.points.size());
+  RCLCPP_INFO(node->get_logger(), "Map point size = %d", (int)cloud.points.size());
 
     //write files
     // std::string pkg_path("/home/jackykong/motionplanning/FUEL_ws/src/Exploration_sim/uav_simulator/map_generator/resource");
@@ -363,15 +370,10 @@ int main(int argc, char** argv)
     // minus_msg.header.frame_id = "world";
 
   int count = 0;
-  while (ros::ok())//!viewer->wasStopped()
+  while (rclcpp::ok())
   {
-
-    	// viewer->spinOnce(100);
-    	// boost::this_thread::sleep(boost::posix_time::microseconds(100000));
-
-    ros::Duration(1.0).sleep();
-    cloud_pub.publish(msg);
-    // minus_cloud_pub.publish(minus_msg);
+    rclcpp::sleep_for(std::chrono::seconds(1));
+    cloud_pub->publish(msg);
     ++count;
     if (count > 10)
     {
@@ -380,5 +382,6 @@ int main(int argc, char** argv)
   }
   cout << "finish publish map." << endl;
 
+  rclcpp::shutdown();
   return 0;
 }
