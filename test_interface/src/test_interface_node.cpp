@@ -1,35 +1,39 @@
-#include "quadrotor_msgs/PositionCommand.h"
-#include <ros/ros.h>
-#include "geometry_msgs/PoseStamped.h"
-#include <tf/transform_datatypes.h>
+#include <quadrotor_msgs/msg/position_command.hpp>
+#include <rclcpp/rclcpp.hpp>
+#include <geometry_msgs/msg/pose_stamped.hpp>
+#include <tf2/LinearMath/Quaternion.h>
+#include <tf2/LinearMath/Matrix3x3.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 
-class Interface
+class Interface : public rclcpp::Node
 {
 public:
     Interface();
 
 private:
-    ros::NodeHandle nh;
-    ros::Publisher pub,pub2;
-    ros::Subscriber sub,sub2;
+    rclcpp::Publisher<quadrotor_msgs::msg::PositionCommand>::SharedPtr pub, pub2;
+    rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr sub, sub2;
 
-    quadrotor_msgs::PositionCommand cmd,cmd2;
+    quadrotor_msgs::msg::PositionCommand cmd, cmd2;
     int _n_seq;
 
-    void messageCallback(const geometry_msgs::PoseStampedConstPtr &msg);
-    void messageCallback2(const geometry_msgs::PoseStampedConstPtr &msg);
+    void messageCallback(const geometry_msgs::msg::PoseStamped::SharedPtr msg);
+    void messageCallback2(const geometry_msgs::msg::PoseStamped::SharedPtr msg);
 };
 
-Interface::Interface() {
-    pub = nh.advertise<quadrotor_msgs::PositionCommand>
+Interface::Interface() : Node("test_interface_node") {
+    pub = this->create_publisher<quadrotor_msgs::msg::PositionCommand>
             ("/planning/pos_cmd_1", 10);
-    pub2 = nh.advertise<quadrotor_msgs::PositionCommand>
+    pub2 = this->create_publisher<quadrotor_msgs::msg::PositionCommand>
             ("/planning/pos_cmd_2", 10);
-    sub = nh.subscribe<geometry_msgs::PoseStamped>
-            ("/quadrotor_1_pos_cmd", 10, &Interface::messageCallback, this);
-            ///move_base_simple/goal
-    sub2 = nh.subscribe<geometry_msgs::PoseStamped>
-            ("/quadrotor_2_pos_cmd", 10, &Interface::messageCallback2, this);
+    sub = this->create_subscription<geometry_msgs::msg::PoseStamped>
+            ("/quadrotor_1_pos_cmd", 10, std::bind(&Interface::messageCallback, this, std::placeholders::_1));
+    sub2 = this->create_subscription<geometry_msgs::msg::PoseStamped>
+            ("/quadrotor_2_pos_cmd", 10, std::bind(&Interface::messageCallback2, this, std::placeholders::_1));
+    
+    // Subscribe to RViz goal pose
+    auto goal_sub = this->create_subscription<geometry_msgs::msg::PoseStamped>
+            ("/goal_pose", 10, std::bind(&Interface::messageCallback, this, std::placeholders::_1));
 
     _n_seq = 0;
 
@@ -58,10 +62,9 @@ Interface::Interface() {
     cmd2.kv[1] = vel_gain[1];
     cmd2.kv[2] = vel_gain[2];
 
-    ros::spin();
 }
 
-void Interface::messageCallback(const geometry_msgs::PoseStampedConstPtr &msg) {
+void Interface::messageCallback(const geometry_msgs::msg::PoseStamped::SharedPtr msg) {
     // header
     cmd.header.stamp = msg->header.stamp;
     cmd.header.frame_id = "world";
@@ -78,14 +81,14 @@ void Interface::messageCallback(const geometry_msgs::PoseStampedConstPtr &msg) {
     cmd.acceleration.y = 0;
     cmd.acceleration.z = 0;
 
-    tf::Quaternion quat;
-    double roll,pitch,yaw;
-    tf::quaternionMsgToTF(msg->pose.orientation,quat);
-    tf::Matrix3x3(quat).getRPY(roll,pitch,yaw);   
+    tf2::Quaternion quat;
+    double roll, pitch, yaw;
+    tf2::fromMsg(msg->pose.orientation, quat);
+    tf2::Matrix3x3(quat).getRPY(roll, pitch, yaw);   
 
     cmd.yaw = yaw;
 
-    pub.publish(cmd);
+    pub->publish(cmd);
 
     // cmd.position.y = msg->pose.position.y + 2;
 
@@ -94,7 +97,7 @@ void Interface::messageCallback(const geometry_msgs::PoseStampedConstPtr &msg) {
     // pub2.publish(cmd);
 }
 
-void Interface::messageCallback2(const geometry_msgs::PoseStampedConstPtr &msg) {
+void Interface::messageCallback2(const geometry_msgs::msg::PoseStamped::SharedPtr msg) {
     // header
     cmd2.header.stamp = msg->header.stamp;
     cmd2.header.frame_id = "world";
@@ -111,21 +114,24 @@ void Interface::messageCallback2(const geometry_msgs::PoseStampedConstPtr &msg) 
     cmd2.acceleration.y = 0;
     cmd2.acceleration.z = 0;
 
-    tf::Quaternion quat;
-    double roll,pitch,yaw;
-    tf::quaternionMsgToTF(msg->pose.orientation,quat);
-    tf::Matrix3x3(quat).getRPY(roll,pitch,yaw);   
+    tf2::Quaternion quat;
+    double roll, pitch, yaw;
+    tf2::fromMsg(msg->pose.orientation, quat);
+    tf2::Matrix3x3(quat).getRPY(roll, pitch, yaw);   
 
     cmd2.yaw = yaw;
 
-    pub2.publish(cmd2);
+    pub2->publish(cmd2);
 }
 
 int main(int argc, char** argv)
 {
-    ROS_WARN("*****START*****");
-    ros::init(argc, argv, "test_interface");
-    Interface Int;
+    rclcpp::init(argc, argv);
+    RCLCPP_WARN(rclcpp::get_logger("test_interface"), "*****START*****");
+    
+    auto interface_node = std::make_shared<Interface>();
+    rclcpp::spin(interface_node);
+    rclcpp::shutdown();
 
     return 0;
 }

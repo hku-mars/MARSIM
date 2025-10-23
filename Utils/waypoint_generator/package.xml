@@ -1,25 +1,25 @@
-<package>
-  <version>0.0.0</version>
+<?xml version="1.0"?>
+<package format="3">
   <name>waypoint_generator</name>
-  <description>
-
-     waypoint_generator
-
-  </description>
+  <version>0.0.0</version>
+  <description>waypoint_generator</description>
   <maintainer email="eeshaojie@todo.todo">Shaojie Shen</maintainer>
   <license>BSD</license>
   <url>http://ros.org/wiki/waypoint_generator</url>
 
-  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <build_depend>roscpp</build_depend>
-  <build_depend>tf</build_depend>
-  <build_depend>nav_msgs</build_depend>
+  <depend>rclcpp</depend>
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+  <depend>nav_msgs</depend>
 
-  <run_depend>roscpp</run_depend>
-  <run_depend>tf</run_depend>
-  <run_depend>nav_msgs</run_depend>
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
 
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
 </package>
 
 

@@ -1,4 +1,4 @@
-Header header
+std_msgs/Header header
 geometry_msgs/Vector3 start_velocity
 geometry_msgs/Vector3 start_acceleration
 geometry_msgs/Point[] plan_points

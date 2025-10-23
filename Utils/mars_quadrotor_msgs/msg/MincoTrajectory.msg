@@ -1,4 +1,4 @@
-Header header
+std_msgs/Header header
 
 # the trajectory id, starts from "1".
 uint32 trajectory_id
@@ -26,7 +26,7 @@ float64[] waypoints_z
 float64[] time
 float64   mag_coeff
 uint32[]  order
-time start_time
+builtin_interfaces/Time start_time
 float64 local_start_t
 #the occ state of trajectory.
 uint32 occ_state
