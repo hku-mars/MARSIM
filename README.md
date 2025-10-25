@@ -25,6 +25,8 @@ The video is available on youtube: https://youtu.be/hiRtcq-5lN0 and
 
 ## Update
 
+### Ubuntu 22.04 and ROS2 are also supported in ubuntu20_ros2 branch.
+
 Ubuntu 20.04 is also supported in ubuntu20 branch.
 
 **Ten realistic maps (low and high resolution) have been realeased in the realease packages.**
