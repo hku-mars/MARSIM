@@ -26,7 +26,7 @@ public:
             "/planning/pos_cmd_1", 10, std::bind(&CascadePIDNode::fuel_position_cmd_callback, this, std::placeholders::_1));
         
         control_timer = this->create_wall_timer(
-            std::chrono::milliseconds(50), std::bind(&CascadePIDNode::run_control, this));
+            std::chrono::milliseconds(5), std::bind(&CascadePIDNode::run_control, this));
         
         t_init = this->now();
         yaw_des = 0.0;

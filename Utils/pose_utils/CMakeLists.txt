@@ -22,6 +22,7 @@ target_compile_features(pose_utils PUBLIC c_std_99 cxx_std_17)
 ament_target_dependencies(pose_utils "rclcpp" "Eigen3")
 
 install(TARGETS pose_utils
+  EXPORT pose_utils
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)
