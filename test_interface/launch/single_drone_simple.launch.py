@@ -24,6 +24,11 @@ def generate_launch_description():
     init_yaw = LaunchConfiguration('init_yaw')
     odom_topic = LaunchConfiguration('odom_topic')
 
+    map_name = PathJoinSubstitution([
+        FindPackageShare('map_generator'),          # Package name
+        'resource', 'small_forest01cutoff.pcd'
+    ])
+
     # Quadrotor dynamics node
     quadrotor_dynamics_node = Node(
         package='mars_drone_sim',
@@ -56,7 +61,10 @@ def generate_launch_description():
             'init_state_yaw': init_yaw,
             'angle_stable_time': 0.5,
             'damping_ratio': 1.0,
-        }]
+        }],
+        remappings=[
+            ('/cmd', '/goal_pose'),
+        ]
     )
 
     # Map generator node
@@ -65,7 +73,7 @@ def generate_launch_description():
         executable='map_pub',
         name='map_pub',
         output='screen',
-        arguments=['/home/jaeyoung/ros2_ws/src/MARSIM/map_generator/resource/small_forest01cutoff.pcd'],
+        arguments=[map_name],
         parameters=[{
             'add_boundary': 0,
             'is_bridge': 0,
@@ -90,7 +98,7 @@ def generate_launch_description():
         executable='opengl_render_node',
         name='quad0_pcl_render_node',
         output='screen',
-        arguments=['/home/jaeyoung/ros2_ws/src/MARSIM/map_generator/resource/small_forest01cutoff.pcd'],
+        arguments=[map_name],
         remappings=[
             ('global_map', '/map_generator/global_cloud'),
             ('odometry', '/odom'),
@@ -123,7 +131,7 @@ def generate_launch_description():
             'output_pcd': 0,
             'uav_num': 1,
         }],
-        env={'DISPLAY': ':0'}
+        # env={'DISPLAY': ':0'}
     )
 
     # Odom visualization node for 3D drone model and trajectory
@@ -134,9 +142,9 @@ def generate_launch_description():
         output='screen',
         parameters=[{
             'mesh_resource': 'package://odom_visualization/meshes/yunque.dae',
-            'color_r': 1.0,
-            'color_g': 0.0,
-            'color_b': 0.0,
+            'color_r': 0.0,
+            'color_g': 1.0,
+            'color_b': 1.0,
             'color_a': 1.0,
             'robot_scale': 2.0,
             'frame_id': 'world',

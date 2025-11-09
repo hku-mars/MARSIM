@@ -89,7 +89,7 @@ int output_pcd;
 int collisioncheck_enable;
 int is_360lidar;
 int use_avia_pattern, use_vlp32_pattern, use_minicf_pattern,use_os128_pattern;
-int livox_linestep;
+double livox_linestep;
 double sensing_horizon, sensing_rate, estimation_rate, polar_resolution, yaw_fov, vertical_fov,\
          min_raylength, downsample_res, curvature_limit, hash_cubesize, collision_range;
 double x_size, y_size, z_size;

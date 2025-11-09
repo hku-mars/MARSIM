@@ -41,7 +41,7 @@ public:
         this->declare_parameter("vertical_fov", 77.2);
         this->declare_parameter("min_raylength", 1.0);
         this->declare_parameter("downsample_res", 0.1);
-        this->declare_parameter("livox_linestep", 1);
+        this->declare_parameter("livox_linestep", 1.0);
         this->declare_parameter("use_avia_pattern", 1);
         this->declare_parameter("curvature_limit", 0.1);
         this->declare_parameter("hash_cubesize", 0.1);
@@ -72,7 +72,7 @@ public:
         vertical_fov_ = this->get_parameter("vertical_fov").as_double();
         min_raylength_ = this->get_parameter("min_raylength").as_double();
         downsample_res_ = this->get_parameter("downsample_res").as_double();
-        livox_linestep_ = this->get_parameter("livox_linestep").as_int();
+        livox_linestep_ = this->get_parameter("livox_linestep").as_double();
         use_avia_pattern_ = this->get_parameter("use_avia_pattern").as_int();
         curvature_limit_ = this->get_parameter("curvature_limit").as_double();
         hash_cubesize_ = this->get_parameter("hash_cubesize").as_double();
@@ -333,13 +333,14 @@ private:
     std::string quad_name_;
     int drone_num_, drone_id_;
     int is_360lidar_, use_avia_pattern_, use_vlp32_pattern_, use_minicf_pattern_;
-    int use_os128_pattern_, use_gaussian_filter_, livox_linestep_;
+    int use_os128_pattern_, use_gaussian_filter_;
     int dynobj_enable_, dynobject_num_, dyn_mode_, use_uav_extra_model_;
     int collisioncheck_enable_, output_pcd_;
     double sensing_horizon_, sensing_rate_, estimation_rate_, polar_resolution_;
     double yaw_fov_, vertical_fov_, min_raylength_, downsample_res_;
     double curvature_limit_, hash_cubesize_, dynobject_size_, dyn_velocity_;
     double collision_range_;
+    double livox_linestep_;
     
     bool has_odom_;
     bool has_global_map_;
